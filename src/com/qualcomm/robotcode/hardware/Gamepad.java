@@ -6,8 +6,11 @@ public class Gamepad {
 	public boolean back;
 	public boolean dpad_down, dpad_left, dpad_right, dpad_up;
 	public boolean guide;
-	public boolean left_bumber, right_bumper;
+	public boolean left_bumper, right_bumper;
+	public float left_trigger, right_trigger;
 	protected float dpadThreshold;
 	protected float joystickDeadzone;
+	
+	
 	
 }

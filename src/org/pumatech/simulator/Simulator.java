@@ -19,7 +19,7 @@ import org.pumatech.states.SimulationState;
 import org.pumatech.states.State;
 
 /* Top level simulation class:
- *  Creates window (1000x1000 JFrame)
+ *  Creates window (800x800 JFrame)
  *  Initializes a JPanel that fills entire JFrame and can be drawn on with Graphics object
  *  Implements loop to draw and update simulated objects
  *  Manages states and updates and draws current state 
@@ -35,7 +35,7 @@ public class Simulator extends JPanel implements Runnable, KeyListener, MouseLis
 	
 	public Simulator() {
 		// Size of JFrame window
-		Dimension size = new Dimension(1000, 1000);
+		Dimension size = new Dimension(800, 800);
 			
 		// Start in Main menu
 		states = new Stack<State>();

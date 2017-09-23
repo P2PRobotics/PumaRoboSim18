@@ -13,7 +13,7 @@ public class Polygon extends Body {
 	
 	public Polygon(Vec2[] vertices, Material mat) {
 		super(mat);
-		pos = new Vec2();
+		pos = new Vec2(0, 0);
 		dir = 0;
 		this.vertices = vertices;
 		calcNormals();

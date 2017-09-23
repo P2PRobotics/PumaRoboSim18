@@ -2,6 +2,7 @@ package org.pumatech.states;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.firstinspires.ftc.teamcode.TestOp;
@@ -26,9 +27,12 @@ public class SimulationState extends State {
 	public SimulationState() {
 		robot = new Robot(new Vec2(200, 200));
 		field = new Field();
-		List<Body> bodies = robot.getBodies();
+		
+		List<Body> bodies = new LinkedList<Body>();
+		bodies.addAll(robot.getBodies());
 		bodies.addAll(field.getBodies());
 		engine = new PhysicsEngine(bodies);
+		
 		viewer = new Body(null) {
 			private static final int SPEED = 150;
 			
@@ -58,7 +62,7 @@ public class SimulationState extends State {
 			public double direction() { return 0; }
 		};
 		cam = new Camera(viewer);
-		
+				
 		opmode = new TestOp();
 		opmode.setup(robot.getHardwareMap());
 		
