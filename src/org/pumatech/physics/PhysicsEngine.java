@@ -24,9 +24,6 @@ public class PhysicsEngine {
 				if (b.isColliding(bodies.get(j))) {
 					collisions.add(new Collision(b, bodies.get(j)));
 				}
-				System.out.println(bodies.get(j).centerPoint());
-				if (b.containsPoint(bodies.get(j).centerPoint()))
-					System.out.println("HELLo");
 			}
 		}
 		

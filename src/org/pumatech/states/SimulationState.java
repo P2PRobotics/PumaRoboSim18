@@ -9,9 +9,9 @@ import org.firstinspires.ftc.teamcode.TestOp;
 import org.pumatech.physics.Body;
 import org.pumatech.physics.PhysicsEngine;
 import org.pumatech.physics.Vec2;
+import org.pumatech.robot.Field;
 import org.pumatech.robot.Robot;
 import org.pumatech.simulator.Camera;
-import org.pumatech.simulator.Field;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
@@ -74,6 +74,7 @@ public class SimulationState extends State {
 		cam.activate(g);
 		field.draw(g);
 		robot.draw(g);
+		engine.draw(g);
 		cam.deactivate(g);
 	}
 

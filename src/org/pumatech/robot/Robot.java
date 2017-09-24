@@ -19,7 +19,7 @@ public class Robot implements Drawable {
 	private HardwareMap hardwareMap;
 	
 	public Robot(Vec2 pos) {
-		Vec2[] vertices = {new Vec2(-25, 25), new Vec2(25, 25), new Vec2(25, -25), new Vec2(-25, -25)};
+		Vec2[] vertices = {new Vec2(25, 25), new Vec2(-25, 25), new Vec2(-25, -25), new Vec2(25, -25)};
 		chassis = new Polygon(vertices, Material.WOOD);
 		w1 = new Wheel(8.3, 0, chassis.getAttachment(new Vec2(0, -24)));
 		w2 = new Wheel(8.3, 0, chassis.getAttachment(new Vec2(0, 24)));

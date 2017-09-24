@@ -39,6 +39,7 @@ public class Simulator extends JPanel implements Runnable, KeyListener, MouseLis
 			
 		// Start in Main menu
 		states = new Stack<State>();
+		//states.push(new PhysicsState());
 		states.push(new SimulationState());
 		
 		// Set size of this JPanel (Simulator extends JPanel)

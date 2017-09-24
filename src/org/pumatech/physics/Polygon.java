@@ -50,11 +50,9 @@ public class Polygon extends Body {
 		for (int i = 1; i < vertices.length; i++) {
 			Vec2 vertex = vertices[i].added(pos);
 			g.draw(new Line2D.Double(prev.x, prev.y, vertex.x, vertex.y));
-			g.draw(new Line2D.Double(vertex.x, vertex.y, vertex.x + normals[i].x * 15, vertex.y + normals[i].y * 15));
 			prev = vertex;
 		}
 		g.draw(new Line2D.Double(first.x, first.y, prev.x, prev.y));
-		g.draw(new Line2D.Double(first.x, first.y, first.x + normals[0].x * 15, first.y + normals[0].y * 15));
 
 	}
 
