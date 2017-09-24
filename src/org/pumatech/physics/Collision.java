@@ -79,8 +79,6 @@ public class Collision {
 		} else if (a instanceof Polygon && b instanceof Polygon) {
 			PolygonvsPolygon((Polygon) a, (Polygon) b);
 		}
-		System.out.println("Collisioning");
-		System.out.println(normal + "\n" + depth + "\n" + contactPoint);
 	}
 	
 	private void AABBvsAABB(AABB a, AABB b) {
