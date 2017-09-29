@@ -19,9 +19,11 @@ public abstract class OpMode {
 	public void stop() { }
 	public void init_loop() { }
 	
-	public void setup(HardwareMap hardwareMap) {
+	public void setup(HardwareMap hardwareMap, Gamepad gamepad1, Gamepad gamepad2) {
 		this.hardwareMap = hardwareMap;
 		telemetry = new BasicTelemetry();
+		this.gamepad1 = gamepad1;
+		this.gamepad2 = gamepad2;
 	}
 	
 	public void updateTelemetry() {

@@ -1,8 +1,9 @@
 package org.pumatech.simulator;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.util.List;
+import java.awt.event.MouseWheelEvent;
 
 import org.pumatech.physics.Body;
 import org.pumatech.physics.Vec2;
@@ -16,39 +17,33 @@ public class Camera {
 	private Body tracking;
 	// The current position of the camera (The center of the camera view)
 	private Vec2 pos;
+	private double scale;
 	
 	// Initialize tracking body and start camera with tracked entity in the center
 	public Camera(Body tracking) {
 		this.tracking = tracking;
 		pos = tracking.centerPoint();
+		scale = 2;
 	}
 	
-	public void activate(Graphics2D g) {
-		g.translate(-pos.x + 200, -pos.y + 200);
+	public void activate(Graphics2D g, Dimension d) {
+		g.translate(d.getWidth() / 2, d.getHeight() / 2);
+		g.scale(scale, scale);
+		g.translate(-pos.x, -pos.y);
 	}
 	
-	public void deactivate(Graphics2D g) {
-		g.translate(pos.x - 200, pos.y - 200);
-	}
-	
-	// Draw drawables using pos as the center of the screen
-	public void draw(Graphics2D g, List<? extends Drawable> drawables) {
-		double x = -pos.x + 200;
-		double y = -pos.y + 200;
-		g.translate(x, y);
-		for (Drawable d : drawables) {
-			d.draw(g);
-		}
-		tracking.draw(g);
-		g.translate(-x, -y);
+	public void deactivate(Graphics2D g, Dimension d) {
+		g.translate(pos.x, pos.y);
+		g.scale(1 / scale, 1 / scale);
+		g.translate(-d.getWidth() / 2, -d.getHeight() / 2);
 	}
 	
 	public Vec2 getCoordinate(Vec2 mouseCoord) {
-		return new Vec2(mouseCoord.x + pos.x - 200, mouseCoord.y + pos.y - 200);
+		return new Vec2(mouseCoord.x + pos.x, mouseCoord.y + pos.y);
 	}
 	
 	public Vec2 getCoordinate(MouseEvent e) {
-		return new Vec2(e.getX() + pos.x - 200, e.getY() + pos.y - 200);
+		return new Vec2(e.getX() + pos.x, e.getY() + pos.y);
 	}
 	
 	// Update the position of the camera to keep the tracked entity within the X and Y tolerances
@@ -62,5 +57,9 @@ public class Camera {
 			pos.y = centerPoint.y - Y_DIST_TOLERANCE;
 		if (centerPoint.y < pos.y - Y_DIST_TOLERANCE)
 			pos.y = centerPoint.y + Y_DIST_TOLERANCE;
+	}
+	
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		scale -= scale * (e.getPreciseWheelRotation() / 12);
 	}
 }

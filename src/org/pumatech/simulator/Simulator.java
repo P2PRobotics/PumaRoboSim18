@@ -9,6 +9,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.util.Stack;
 
 import javax.swing.JFrame;
@@ -24,14 +26,13 @@ import org.pumatech.states.State;
  *  Implements loop to draw and update simulated objects
  *  Manages states and updates and draws current state 
  */
-public class Simulator extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener {
+public class Simulator extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 30L;
 
 	public static final Vec2 GRAVITY = new Vec2(0, .2);
 	
 	private boolean running = false; // Bool for when Tread is running
 	private Stack<State> states; // Stack of running states (operates like a call stack)
-	private double scale;
 	
 	public Simulator() {
 		// Size of JFrame window
@@ -54,18 +55,18 @@ public class Simulator extends JPanel implements Runnable, KeyListener, MouseLis
 		addKeyListener(this);
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		addMouseWheelListener(this);
 		
 		// Create JFrame to house JPanel and size it to JPanel
 		JFrame f = new JFrame("Puma Robotics Simulator");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setResizable(false);
+		f.setResizable(true);
 		f.add(this);
 		f.pack();
 		f.setLocationRelativeTo(null);
 		f.setVisible(true);
 		
 		running = true;
-		scale = Math.min(size.width, size.height) / 400;
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -74,30 +75,10 @@ public class Simulator extends JPanel implements Runnable, KeyListener, MouseLis
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setColor(Color.BLACK);
 		g2d.fillRect(0, 0, (int) width, (int) height);
-		
-		// Rescale so that resolution is 400x400 and always displays in  square in JFrame
-		if (width > height) {
-			g2d.translate((width - height) / 2, 0);
-		} else {
-			g2d.translate(0, (height - width) / 2);			
-		}
-		scale = Math.min(width, height) / 400;
-		g2d.scale(scale, scale);
-		
 		g2d.setFont(GraphicsLib.FONT);
 		
 		// Draw the current state
-		if (!states.isEmpty()) states.peek().draw(g2d);
-		
-		// Fill in black on the screen
-		g2d.setColor(new Color(230, 230, 235));
-		if (width > height) {
-			g2d.fillRect((int) -width, 0, (int) width, 400);
-			g2d.fillRect(400, 0, (int) width, 400);
-		} else {
-			g2d.fillRect(0, (int) -height, 400, (int) height);
-			g2d.fillRect(0, 400, 400, (int) height);
-		}
+		if (!states.isEmpty()) states.peek().draw(g2d, getSize());
 	}
 	
 	// Update runs 60 times a second causing a tick
@@ -142,12 +123,6 @@ public class Simulator extends JPanel implements Runnable, KeyListener, MouseLis
 			}
 		}
 	}
-	
-	private void correctMouseEvent(MouseEvent e) {
-		int x = (int) (e.getX() / scale);
-		int y = (int) (e.getY() / scale);
-		e.translatePoint(x - e.getX(), y - e.getY());
-	}
 
 	// Mouse and Key event handlers below. (Called when mouse does actions and keys are pressed and released)
 	public void keyPressed(KeyEvent e) { 
@@ -163,44 +138,49 @@ public class Simulator extends JPanel implements Runnable, KeyListener, MouseLis
 	public void keyTyped(KeyEvent e) { } // don't dispatch to states because it isn't useful
 	
 	public void mouseClicked(MouseEvent e) { 
-		if (!states.isEmpty())
-			correctMouseEvent(e);
+		if (!states.isEmpty()) {
 			states.peek().mouseClicked(e); 
+		}
 	}
 
 	public void mouseEntered(MouseEvent e) { 
-		if (!states.isEmpty())
-			correctMouseEvent(e);
+		if (!states.isEmpty()) {
 			states.peek().mouseEntered(e); 
+		}
 	}
 
 	public void mouseExited(MouseEvent e) { 
-		if (!states.isEmpty())
-			correctMouseEvent(e);
+		if (!states.isEmpty()) {
 			states.peek().mouseExited(e); 
+		}
 	}
 
 	public void mousePressed(MouseEvent e) { 
-		if (!states.isEmpty())
-			correctMouseEvent(e);
+		if (!states.isEmpty()) {
 			states.peek().mousePressed(e); 
+		}
 	}
 	
 	public void mouseReleased(MouseEvent e) { 
-		if (!states.isEmpty())
-			correctMouseEvent(e);
+		if (!states.isEmpty()) {
 			states.peek().mouseReleased(e); 
+		}
 	}
 
 	public void mouseDragged(MouseEvent e) { 
-		if (!states.isEmpty())
-			correctMouseEvent(e);
+		if (!states.isEmpty()) {
 			states.peek().mouseDragged(e);
+		}
 	}
 
 	public void mouseMoved(MouseEvent e) { 
-		if (!states.isEmpty())
-			correctMouseEvent(e);
+		if (!states.isEmpty()) {
 			states.peek().mouseMoved(e); 
+		}
+	}
+
+	public void mouseWheelMoved(MouseWheelEvent e) {
+		if (!states.isEmpty())
+			states.peek().mouseWheelMoved(e); 
 	}
 }

@@ -1,6 +1,7 @@
 package org.pumatech.states;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -67,15 +68,15 @@ public class PhysicsState extends State {
 		cam = new Camera(viewer);
 	}
 	
-	public void draw(Graphics2D g) {
-		cam.activate(g);
+	public void draw(Graphics2D g, Dimension d) {
+		cam.activate(g, d);
 		engine.draw(g);
 		if (attachment != null) {
 			g.setColor(Color.GREEN);
 			g.fill(new Ellipse2D.Double(attachment.getBody().centerPoint().x - 1.5, attachment.getBody().centerPoint().y - 1.5, 3, 3));
 			g.draw(new Line2D.Double(attachment.getPoint().x, attachment.getPoint().y, mouseCoord.x, mouseCoord.y));
 		}
-		cam.deactivate(g);
+		cam.deactivate(g, d);
 	}
 
 	public void update(double dt) {
