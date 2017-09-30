@@ -26,22 +26,27 @@ public class Camera {
 		scale = 2;
 	}
 	
+	// Activates camera so that everything drawn is in perspective.
 	public void activate(Graphics2D g, Dimension d) {
 		g.translate(d.getWidth() / 2, d.getHeight() / 2);
 		g.scale(scale, scale);
 		g.translate(-pos.x, -pos.y);
 	}
 	
+	// Deactivates camera & returns Graphics2D object to original position
 	public void deactivate(Graphics2D g, Dimension d) {
 		g.translate(pos.x, pos.y);
 		g.scale(1 / scale, 1 / scale);
 		g.translate(-d.getWidth() / 2, -d.getHeight() / 2);
 	}
 	
+	// TODO update both getCoordinate methods to work with scale
+	// Returns a position vector for the coordinates in the system instead of screen coordinates
 	public Vec2 getCoordinate(Vec2 mouseCoord) {
 		return new Vec2(mouseCoord.x + pos.x, mouseCoord.y + pos.y);
 	}
 	
+	// Returns a position vector for the coordinates in the system instead of screen coordinates
 	public Vec2 getCoordinate(MouseEvent e) {
 		return new Vec2(e.getX() + pos.x, e.getY() + pos.y);
 	}

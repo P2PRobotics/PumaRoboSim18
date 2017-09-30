@@ -8,9 +8,8 @@ import org.pumatech.physics.Body;
 import org.pumatech.physics.Material;
 import org.pumatech.physics.Polygon;
 import org.pumatech.physics.Vec2;
-import org.pumatech.simulator.Drawable;
 
-public class Field implements Drawable {
+public class Field {
 
 	private List<Body> walls;
 	
@@ -33,11 +32,6 @@ public class Field implements Drawable {
 	}
 	
 	public void draw(Graphics2D g) {
-//		Stroke old = g.getStroke();
-//		g.setStroke(new BasicStroke(5));
-//		g.setColor(Color.DARK_GRAY);
-//		g.draw(new Rectangle2D.Double(0, 0, 400, 400));
-//		g.setStroke(old);
 		for(Body wall : walls) {
 			wall.draw(g);
 		}

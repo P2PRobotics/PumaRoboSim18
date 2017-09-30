@@ -8,11 +8,10 @@ import java.awt.geom.Line2D;
 
 import org.pumatech.physics.Attachment;
 import org.pumatech.physics.Vec2;
-import org.pumatech.simulator.Drawable;
 
 import com.qualcomm.robotcode.hardware.DcMotor;
 
-public class Wheel implements Drawable, DcMotor {
+public class Wheel implements DcMotor {
 
 	private Attachment attachment;
 	private double radius;

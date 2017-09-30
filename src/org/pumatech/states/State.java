@@ -57,9 +57,8 @@ public abstract class State {
 			keyDown[k] = false;
 	}
 	
-	public void mouseWheelMoved(MouseWheelEvent e) {
-		
-	}
+	// Event handler for mouse scroll wheel movement. No default behavior.
+	public void mouseWheelMoved(MouseWheelEvent e) { }
 	
 	// Other unused event handlers
 	public void mouseClicked(MouseEvent e) {}

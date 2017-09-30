@@ -8,11 +8,10 @@ import org.pumatech.physics.Body;
 import org.pumatech.physics.Material;
 import org.pumatech.physics.Polygon;
 import org.pumatech.physics.Vec2;
-import org.pumatech.simulator.Drawable;
 
 import com.qualcomm.robotcode.hardware.HardwareMap;
 
-public class Robot implements Drawable {
+public class Robot {
 
 	private Wheel w1, w2, w3, w4;
 	private Body chassis;

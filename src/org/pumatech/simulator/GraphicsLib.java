@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
+// Contains static methods for drawing not provided by Graphics2D
 public class GraphicsLib {
 	public static final Font FONT = new Font("Courier", Font.PLAIN, 16); // Font that all Graphics is set to use by default
 
@@ -15,4 +16,5 @@ public class GraphicsLib {
 		g.drawString(msg, x, y);
 	}
 	
+	// TODO method to draw an arrow (for vectors and things)
 }

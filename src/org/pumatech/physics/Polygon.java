@@ -3,6 +3,7 @@ package org.pumatech.physics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
+// TODO comment
 public class Polygon extends Body {
 
 	private Vec2 pos;

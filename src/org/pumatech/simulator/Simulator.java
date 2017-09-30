@@ -16,7 +16,6 @@ import java.util.Stack;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import org.pumatech.physics.Vec2;
 import org.pumatech.states.SimulationState;
 import org.pumatech.states.State;
 
@@ -29,13 +28,11 @@ import org.pumatech.states.State;
 public class Simulator extends JPanel implements Runnable, KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 	private static final long serialVersionUID = 30L;
 
-	public static final Vec2 GRAVITY = new Vec2(0, .2);
-	
 	private boolean running = false; // Bool for when Tread is running
 	private Stack<State> states; // Stack of running states (operates like a call stack)
 	
 	public Simulator() {
-		// Size of JFrame window
+		// Starting size of JFrame window
 		Dimension size = new Dimension(800, 800);
 			
 		// Start in Main menu
@@ -48,8 +45,7 @@ public class Simulator extends JPanel implements Runnable, KeyListener, MouseLis
 		setMinimumSize(size);
 		setMaximumSize(size);
 		
-		// Setup JPanel with event listeners and such
-		setBackground(Color.BLACK);
+		// Setup JPanel to handle varius events
 		setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
 		addKeyListener(this);
@@ -125,6 +121,8 @@ public class Simulator extends JPanel implements Runnable, KeyListener, MouseLis
 	}
 
 	// Mouse and Key event handlers below. (Called when mouse does actions and keys are pressed and released)
+	// Event objects (KeyEvent, MouseEvent, MouseWheelEvent) contain info about event (ex: which key was pressed)
+	// Events are relayed to active state
 	public void keyPressed(KeyEvent e) { 
 		if (!states.isEmpty())
 			states.peek().keyPressed(e.getKeyCode()); 

@@ -19,6 +19,7 @@ import org.pumatech.physics.Polygon;
 import org.pumatech.physics.Vec2;
 import org.pumatech.simulator.Camera;
 
+// Don't worry about this class. It won't be commented.
 public class PhysicsState extends State {
 
 	private PhysicsEngine engine;
