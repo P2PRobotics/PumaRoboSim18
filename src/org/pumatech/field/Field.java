@@ -15,16 +15,16 @@ public class Field {
 	
 	public Field() {
 		walls = new LinkedList<Body>();
-		Vec2[] verticeshoriz = {new Vec2(200, 50), new Vec2(-200, 50), new Vec2(-200, -50), new Vec2(200, -50)};
-		Vec2[] verticesvert = {new Vec2(50, 300), new Vec2(-50, 300), new Vec2(-50, -300), new Vec2(50, -300)};
+		Vec2[] verticeshoriz = {new Vec2(72, 10), new Vec2(-72, 10), new Vec2(-72, -10), new Vec2(72, -10)};
+		Vec2[] verticesvert = {new Vec2(10, 92), new Vec2(-10, 92), new Vec2(-10, -92), new Vec2(10, -92)};
 		Body wall1 = new Polygon(verticeshoriz, Material.IMMOVEABLE);
-		wall1.moveBy(new Vec2(200,-50));
+		wall1.moveBy(new Vec2(72,-10));
 		Body wall2 = new Polygon(verticeshoriz, Material.IMMOVEABLE);
-		wall2.moveBy(new Vec2(200,450));
+		wall2.moveBy(new Vec2(72,154));
 		Body wall3 = new Polygon(verticesvert, Material.IMMOVEABLE);
-		wall3.moveBy(new Vec2(-50,200));
+		wall3.moveBy(new Vec2(-10,72));
 		Body wall4 = new Polygon(verticesvert, Material.IMMOVEABLE);
-		wall4.moveBy(new Vec2(450,200));
+		wall4.moveBy(new Vec2(154,72));
 		walls.add(wall1);
 		walls.add(wall2);
 		walls.add(wall3);

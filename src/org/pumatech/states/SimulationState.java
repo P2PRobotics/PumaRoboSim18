@@ -7,7 +7,7 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.firstinspires.ftc.teamcode.TestOp;
+import org.firstinspires.ftc.teamcode.BasicTeleOp;
 import org.pumatech.field.Field;
 import org.pumatech.physics.Body;
 import org.pumatech.physics.PhysicsEngine;
@@ -16,8 +16,8 @@ import org.pumatech.robot.Robot;
 import org.pumatech.simulator.Camera;
 import org.pumatech.simulator.DriverStation;
 
-import com.qualcomm.robotcode.hardware.Gamepad;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
@@ -37,7 +37,7 @@ public class SimulationState extends State {
 	
 	public SimulationState() {
 		// Initialize robot and field
-		robot = new Robot(new Vec2(200, 200));
+		robot = new Robot(new Vec2(72, 72));
 		field = new Field();
 		
 		// Get physical bodies for simulation and initialize physics engine to simulate those bodies
@@ -48,9 +48,9 @@ public class SimulationState extends State {
 		
 		// Camera follows the viewer body (not being simulated), which moves with arrow keys
 		viewer = new Body(null) {
-			private static final int SPEED = 150; // 150 in/s
+			private static final int SPEED = 50; // 150 in/s
 			
-			private Vec2 pos = new Vec2(200, 200);
+			private Vec2 pos = new Vec2(72, 72);
 			// keyDown is an array of booleans corresponding to a specific key (index is KeyEvent.VK)
 			// references the keyDown array in SimulationState (inherited from State)
 			private boolean[] kd = keyDown;
@@ -103,7 +103,7 @@ public class SimulationState extends State {
 		
         // Initialize opmode and connect it to robot and gamepads (and telemetry later)
         // TODO have DriverStation dynamically setup opmode
-		opmode = new TestOp();
+		opmode = new BasicTeleOp();
 		opmode.setup(robot.getHardwareMap(), gamepad1, gamepad2);
 		
         // TODO have DriverStation initialize and start on user input

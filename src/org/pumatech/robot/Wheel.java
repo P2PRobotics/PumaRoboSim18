@@ -9,7 +9,7 @@ import java.awt.geom.Line2D;
 import org.pumatech.physics.Attachment;
 import org.pumatech.physics.Vec2;
 
-import com.qualcomm.robotcode.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Wheel implements DcMotor {
 
@@ -26,7 +26,7 @@ public class Wheel implements DcMotor {
 	
 	public void draw(Graphics2D g) {
 		Stroke old = g.getStroke();
-		g.setStroke(new BasicStroke(3));
+		g.setStroke(new BasicStroke(1));
 		g.setColor(Color.DARK_GRAY);
 		Vec2 point = attachment.getPoint();
 		Vec2 dirVec = new Vec2(direction + attachment.getBody().direction()).scaled(radius);
@@ -48,7 +48,7 @@ public class Wheel implements DcMotor {
 	
 	public void update(double dt) {
 		if (power != 0)
-			attachment.getBody().applyImpulse(new Vec2(direction + attachment.getBody().direction()).scaled(power * radius * 100), attachment.getPoint());
+			attachment.getBody().applyImpulse(new Vec2(direction + attachment.getBody().direction()).scaled(power * radius * 1000), attachment.getPoint());
 	}
 
 	public Direction getDirection() {

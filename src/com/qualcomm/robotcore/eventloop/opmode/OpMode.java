@@ -3,9 +3,26 @@ package com.qualcomm.robotcore.eventloop.opmode;
 import org.firstinspires.ftc.robotcore.external.BasicTelemetry;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-import com.qualcomm.robotcode.hardware.Gamepad;
-import com.qualcomm.robotcode.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+@interface Teleop{
 
+	String name();
+
+	String group();
+	
+	
+	
+}
+@interface Autonomous{
+
+	String name();
+
+	String group();
+	
+	
+	
+}
 public abstract class OpMode {
 
 	protected Gamepad gamepad1, gamepad2;

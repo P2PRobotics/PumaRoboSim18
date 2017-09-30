@@ -1,4 +1,4 @@
-package com.qualcomm.robotcode.hardware;
+package com.qualcomm.robotcore.hardware;
 
 public interface DcMotorSimple extends HardwareDevice {
 

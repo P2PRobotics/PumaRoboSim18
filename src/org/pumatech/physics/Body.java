@@ -63,6 +63,11 @@ public abstract class Body {
 		force.add(f);
 	}
 	
+	// Applies a torque to the body for the next update
+	public void applyTorque(double t) {
+		torque += t;
+	}
+	
 	// Applies an impulse (instant change in momentum) for collision resolution
 	public void applyImpulse(Vec2 impulse, Vec2 contactPoint) {
 		vel.add(impulse.scaled(getMassInv())); // velocity += impulse / mass
@@ -120,5 +125,13 @@ public abstract class Body {
 	
 	public Material getMaterial() {
 		return mat;
+	}
+	
+	public Vec2 getVelocity() {
+		return vel;
+	}
+	
+	public double getAngularVelocity() {
+		return angularVel;
 	}
 }
