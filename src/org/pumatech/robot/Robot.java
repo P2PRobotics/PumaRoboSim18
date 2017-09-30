@@ -23,7 +23,7 @@ public class Robot {
 		w1 = new Wheel(8.3, 0, chassis.getAttachment(new Vec2(0, -24)));
 		w2 = new Wheel(8.3, 0, chassis.getAttachment(new Vec2(0, 24)));
 		w3 = new Wheel(8.3, -Math.PI / 2, chassis.getAttachment(new Vec2(-24, 0)));
-		w4 = new Wheel(8.3, -Math.PI / 2, chassis.getAttachment(new Vec2(24, 0)));
+		w4 = new Wheel(8.2, -Math.PI / 2, chassis.getAttachment(new Vec2(24, 0)));
 		
 		chassis.moveBy(pos);
 		
