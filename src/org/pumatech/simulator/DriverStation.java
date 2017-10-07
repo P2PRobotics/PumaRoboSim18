@@ -110,14 +110,14 @@ public class DriverStation {
 		// Start, stop, and init button
 		if (!hasInit&&!isRun) {
 			g.setColor(RED[7]);
-			GraphicsLib.drawStringCentered(g, "INIT", 218, 545, 50);
+			GraphicsLib.drawStringCentered(g, "INIT", 215, 545, 50);
 			opmode.init();
 		} else if (hasInit&&!isRun) {
 			triangle(g, new Vec2(200, 525), new Vec2(200, 575), new Vec2(250, 550), RED[7]);
 	        opmode.start();
 		}
 		else {
-			rect(g, 200, 530, 40, 40, RED[7]);
+			rect(g, 199, 530, 40, 40, RED[7]);
 			opmode.stop();
 		}
 		
