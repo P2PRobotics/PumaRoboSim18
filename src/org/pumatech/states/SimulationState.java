@@ -3,6 +3,7 @@ package org.pumatech.states;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
@@ -132,5 +133,9 @@ public class SimulationState extends State {
 	// Dispatches mouse scroll event to camera, which zooms in/out
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		cam.mouseWheelMoved(e);
+	}
+	
+	public void mousePressed(MouseEvent e) {
+		ds.mousePressed(e);
 	}
 }

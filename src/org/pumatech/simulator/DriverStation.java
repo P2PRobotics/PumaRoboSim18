@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
@@ -34,6 +35,7 @@ public class DriverStation {
 	private Field field; // Will be used to reset the field on restart
 	private Gamepad gamepad1, gamepad2;
 	private List<Class<? extends OpMode>> teleopOpModes, autonomousOpModes;
+	private boolean hasInit, isRun;
 	
 	public DriverStation(Robot robot, Field field) {
 		this.robot = robot;
@@ -62,8 +64,6 @@ public class DriverStation {
         opmode = new BasicTeleOp();
         opmode.setup(robot.getHardwareMap(), gamepad1, gamepad2);
         
-        opmode.init();
-        opmode.start();
 	}
 	
 	public void update(double dt) {
@@ -107,11 +107,19 @@ public class DriverStation {
 		triangle(g, new Vec2(32, 353), new Vec2(84, 353), new Vec2(58, 391), Color.WHITE);
 		triangle(g, new Vec2(423, 353), new Vec2(474, 353), new Vec2(449, 391), Color.WHITE);
 		
-		// Start, stop, and init buttons
-		g.setColor(RED[7]);
-		GraphicsLib.drawStringCentered(g, "INIT", 218, 545, 50);
-		triangle(g, new Vec2(200, 525), new Vec2(200, 575), new Vec2(250, 550), RED[7]);
-		rect(g, 200, 530, 40, 40, RED[7]);
+		// Start, stop, and init button
+		if (!hasInit&&!isRun) {
+			g.setColor(RED[7]);
+			GraphicsLib.drawStringCentered(g, "INIT", 218, 545, 50);
+			opmode.init();
+		} else if (hasInit&&!isRun) {
+			triangle(g, new Vec2(200, 525), new Vec2(200, 575), new Vec2(250, 550), RED[7]);
+	        opmode.start();
+		}
+		else {
+			rect(g, 200, 530, 40, 40, RED[7]);
+			opmode.stop();
+		}
 		
 		// Draw line dividing DS from rest of simulation
 		g.setColor(Color.WHITE);
@@ -160,5 +168,10 @@ public class DriverStation {
 	
 	public void toggle() {
 		show = !show;
+	}
+
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
