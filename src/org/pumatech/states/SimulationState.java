@@ -36,7 +36,7 @@ public class SimulationState extends State {
 	
 	public SimulationState() {
 		// Initialize robot and field
-		robot = new Robot(new Vec2(72, 72));
+		robot = new Robot(new Vec2(25, 25));
 		field = new Field();
 		
 		// Get physical bodies for simulation and initialize physics engine to simulate those bodies
