@@ -7,7 +7,6 @@ import java.awt.event.MouseWheelEvent;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.firstinspires.ftc.teamcode.BasicTeleOp;
 import org.pumatech.field.Field;
 import org.pumatech.physics.Body;
 import org.pumatech.physics.PhysicsEngine;
@@ -16,24 +15,23 @@ import org.pumatech.robot.Robot;
 import org.pumatech.simulator.Camera;
 import org.pumatech.simulator.DriverStation;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import net.java.games.input.Component;
 import net.java.games.input.Controller;
 import net.java.games.input.ControllerEnvironment;
 
 public class SimulationState extends State {
 
-	private OpMode opmode; // Currently running opmode
 	private DriverStation ds;
 	private PhysicsEngine engine;
 	
 	private Camera cam;
 	private Body viewer; // Sets the center of the camera view (moves around with arrow keys)
 	
-	private Robot robot; // TODO consider moving into driver station
+	private Robot robot; 
 	private Field field;
-	private Gamepad gamepad1, gamepad2;
+	private List<Controller> gamepads;
 	
 	public SimulationState() {
 		// Initialize robot and field
@@ -82,35 +80,16 @@ public class SimulationState extends State {
 		};
 		cam = new Camera(viewer);
 		
+		ds = new DriverStation(robot, field);
+		
 		// Use JInput to discover input devices
+		gamepads = new LinkedList<Controller>();
         System.out.println("Searching for input devices...");				
         Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
-
-        // Initialize gamepad1 and gamepad2 with first gamepads discovered
-        // TODO use start+A and start+B to select gamepads 1 and 2
-        for (int i = 0; i < ca.length; i++) {
-        	System.out.println(ca[i].getType() + " : " + ca[i].getName());
-        	if (ca[i].getType() == Controller.Type.GAMEPAD) {
-        		if (gamepad1 == null) {
-        			System.out.println("Gamepad1 found: " + ca[i].getName());
-        			gamepad1 = new Gamepad(ca[i]);
-        		} else if (gamepad2 == null) {
-        			System.out.println("Gamepad2 found: " + ca[i].getName());
-        			gamepad2 = new Gamepad(ca[i]);
-        		}
-        	}
+        for (Controller c : ca) {
+        	if (c.getType() == Controller.Type.GAMEPAD)
+        		gamepads.add(c);
         }
-		
-        // Initialize opmode and connect it to robot and gamepads (and telemetry later)
-        // TODO have DriverStation dynamically setup opmode
-		opmode = new BasicTeleOp();
-		opmode.setup(robot.getHardwareMap(), gamepad1, gamepad2);
-		
-        // TODO have DriverStation initialize and start on user input
-		opmode.init();
-		opmode.start();
-		
-		ds = new DriverStation();
 	}
 
 	public void draw(Graphics2D g, Dimension d) {
@@ -125,18 +104,22 @@ public class SimulationState extends State {
 	}
 
 	public void update(double dt) {
+		ds.update(dt);
+		robot.update(dt);
 		cam.update(dt);
 		viewer.update(dt);
-		robot.update(dt);
 		engine.update(dt);
 		
-		if (gamepad1 != null)
-			gamepad1.update(dt);
-		if (gamepad2 != null)
-			gamepad2.update(dt);
-
-		// Repeatedly runs opmode loop about 60 times per second
-		opmode.loop();
+		for (Controller c : gamepads) {
+			c.poll();
+			
+			Component[] components = c.getComponents();
+			if (components[12].getPollData() == 1 && components[5].getPollData() == 1) {
+				ds.setGamepad1(new Gamepad(c));
+			} else if (components[12].getPollData() == 1 && components[6].getPollData() == 1) {
+				ds.setGamepad2(new Gamepad(c));
+			}
+		}
 	}
 	
 	// super.keyPressed updates keyDown array. Pressing tab toggles DriverStation view

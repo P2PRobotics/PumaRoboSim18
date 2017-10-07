@@ -1,10 +1,20 @@
 package org.pumatech.simulator;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
+import java.util.List;
+
+import org.firstinspires.ftc.teamcode.BasicTeleOp;
+import org.pumatech.field.Field;
+import org.pumatech.physics.Vec2;
+import org.pumatech.robot.Robot;
+
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 public class DriverStation {
 	@SuppressWarnings("unused")
@@ -17,11 +27,49 @@ public class DriverStation {
 			new Color(121, 14, 21), new Color(166, 4, 14),
 			new Color(192, 11, 13)};
 
-	// boolean for whether DS is shown (toggles with tab)
-	private boolean show;
 	
-	public DriverStation() {
+	private boolean show; // boolean for whether DS is shown (toggles with tab)
+	private OpMode opmode; // Currently running opmode
+	private Robot robot; // Will be used to initialize opmode and reset robot on restart
+	private Field field; // Will be used to reset the field on restart
+	private Gamepad gamepad1, gamepad2;
+	private List<Class<? extends OpMode>> teleopOpModes, autonomousOpModes;
+	
+	public DriverStation(Robot robot, Field field) {
+		this.robot = robot;
+		this.field = field;
+		
 		show = false; // DS starts hidden
+		
+		// Gamepads start out null (disconnected) and are connected with setGamepad methods
+        gamepad1 = new Gamepad(null);
+        gamepad2 = new Gamepad(null);
+        
+        // vvv This is not working :(
+//        Reflections reflections = new Reflections("org.firstinspires.ftc.teamcode");
+//        Set<Class<? extends OpMode>> opmodes = reflections.getSubTypesOf(OpMode.class);
+//        for (Class<? extends OpMode> op : opmodes) {
+//    		Teleop teleopAnnotation = op.getAnnotation(Teleop.class);
+//    		Autonomous autonomousAnnotation = op.getAnnotation(Autonomous.class);
+//    		if (teleopAnnotation != null) {
+//    			teleopOpModes.add(op);
+//    		} else if (autonomousAnnotation != null) {
+//    			autonomousOpModes.add(op);
+//    		}
+//        }
+
+        // Initialize opmode and connect it to robot and gamepads (and telemetry later)
+        opmode = new BasicTeleOp();
+        opmode.setup(robot.getHardwareMap(), gamepad1, gamepad2);
+        
+        opmode.init();
+        opmode.start();
+	}
+	
+	public void update(double dt) {
+		opmode.loop();
+		gamepad1.update(dt);
+		gamepad2.update(dt);
 	}
 	
 	public void draw(Graphics2D g) {
@@ -56,6 +104,8 @@ public class DriverStation {
 		ellipse(g, 392, 591, 29, 29, RED[0]);
 		ellipse(g, 365, 591, 29, 29, RED[0]);
 		rect(g, 376, 592, 30, 29, RED[0]);
+		triangle(g, new Vec2(32, 353), new Vec2(84, 353), new Vec2(58, 391), Color.WHITE);
+		triangle(g, new Vec2(423, 353), new Vec2(474, 353), new Vec2(449, 391), Color.WHITE);
 		
 		// Draw line dividing DS from rest of simulation
 		g.setColor(Color.WHITE);
@@ -65,7 +115,7 @@ public class DriverStation {
 		// Set the clip of the rest of the simulation to avoid overwriting DS area
 		g.setClip((int) (252.5 * PIXEL + 1), 0, 10000, 2000); // Should be big rectangle size
 	}
-
+	
 	private static void rect(Graphics2D g, double x, double y, double width, double height, Color c) {
 		g.setColor(c);
 		g.fill(new Rectangle2D.Double(x * PIXEL, y * PIXEL, width * PIXEL, height * PIXEL));
@@ -76,9 +126,30 @@ public class DriverStation {
 		g.fill(new Ellipse2D.Double(x * PIXEL, y * PIXEL, width * PIXEL, height * PIXEL));
 	}
 	
-	private static void circle(Graphics2D g, double x, double y, double radius, Color c) {
-		g.setColor(c);
-		g.fill(new Ellipse2D.Double((x - radius) * PIXEL, (y - radius) * PIXEL, 2 * radius * PIXEL, 2 * radius * PIXEL));
+	private static void triangle(Graphics g, Vec2 a, Vec2 b, Vec2 c, Color color) {
+		g.setColor(color);
+		int[] x = {(int) (a.x * PIXEL), (int) (b.x * PIXEL), (int) (c.x * PIXEL)};
+		int[] y = {(int) (a.y * PIXEL), (int) (b.y * PIXEL), (int) (c.y * PIXEL)};
+		g.fillPolygon(x, y, 3);
+	}
+	public void setGamepad1(Gamepad gamepad1) {
+		if (this.gamepad1 != null && this.gamepad1.equals(gamepad1))
+			return;
+		System.out.println("Gamepad 1 connected");
+		if (gamepad2 != null && gamepad1.equals(gamepad2))
+			setGamepad2(new Gamepad(null));
+		this.gamepad1 = gamepad1;
+		opmode.setGamepad1(gamepad1);
+	}
+	
+	public void setGamepad2(Gamepad gamepad2) {
+		if (this.gamepad2 != null && this.gamepad2.equals(gamepad2))
+			return;
+		System.out.println("Gamepad 2 connected");
+		if (gamepad1 != null && gamepad2.equals(gamepad1))
+			setGamepad1(new Gamepad(null));
+		this.gamepad2 = gamepad2;
+		opmode.setGamepad2(gamepad2);
 	}
 	
 	public void toggle() {

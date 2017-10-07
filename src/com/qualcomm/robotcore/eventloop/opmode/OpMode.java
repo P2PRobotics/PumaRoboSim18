@@ -5,24 +5,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-@interface Teleop{
 
-	String name();
-
-	String group();
-	
-	
-	
-}
-@interface Autonomous{
-
-	String name();
-
-	String group();
-	
-	
-	
-}
 public abstract class OpMode {
 
 	protected Gamepad gamepad1, gamepad2;
@@ -55,4 +38,11 @@ public abstract class OpMode {
 		return 0;
 	}
 	
+	public void setGamepad1(Gamepad gamepad1) {
+		this.gamepad1 = gamepad1;
+	}
+	
+	public void setGamepad2(Gamepad gamepad2) {
+		this.gamepad2 = gamepad2;
+	}
 }

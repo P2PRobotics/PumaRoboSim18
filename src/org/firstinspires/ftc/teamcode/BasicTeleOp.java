@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by vvestin on 9/23/17.
  */
 
-
 public class BasicTeleOp extends OpMode {
 
     private DcMotor motor1;
@@ -25,20 +24,18 @@ public class BasicTeleOp extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad1.left_trigger > 0.05) {
-        	System.out.println("meow");
-            motor1.setPower(1);
-            motor2.setPower(-1);
-            motor3.setPower(-1);
-            motor4.setPower(1);
+        if (gamepad1.left_trigger > 0.1) {
+            motor1.setPower(gamepad1.left_trigger);
+            motor2.setPower(-gamepad1.left_trigger);
+            motor3.setPower(-gamepad1.left_trigger);
+            motor4.setPower(gamepad1.left_trigger);
             return;
         }
-        if (gamepad1.right_trigger > 0.05) {
-        	System.out.println("flisme");
-            motor1.setPower(-1);
-            motor2.setPower(1);
-            motor3.setPower(1);
-            motor4.setPower(-1);
+        if (gamepad1.right_trigger > 0.1) {
+            motor1.setPower(-gamepad1.right_trigger);
+            motor2.setPower(gamepad1.right_trigger);
+            motor3.setPower(gamepad1.right_trigger);
+            motor4.setPower(-gamepad1.right_trigger);
             return;
         }
         double x = gamepad1.right_stick_x;

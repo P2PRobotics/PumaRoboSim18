@@ -1,6 +1,8 @@
 package org.pumatech.robot;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,6 +43,10 @@ public class Robot {
 		w2.draw(g);
 		w3.draw(g);
 		w4.draw(g);
+		g.setColor(Color.GREEN);
+		Vec2 dir = new Vec2(chassis.direction() - Math.PI / 2).scaled(9);
+		Vec2 pos = chassis.centerPoint();
+		g.draw(new Line2D.Double(pos.x, pos.y, pos.x + dir.x, pos.y + dir.y));
 	}
 
 	public void update(double dt) {
@@ -49,7 +55,7 @@ public class Robot {
 		w3.update(dt);
 		w4.update(dt);
 		chassis.applyForce(chassis.getVelocity().scaled(-10000*dt));
-		chassis.applyTorque(chassis.getAngularVelocity() * -100 * dt);
+		chassis.applyTorque(chassis.getAngularVelocity() * -175 * dt);
 	}
 
 	public List<Body> getBodies() {

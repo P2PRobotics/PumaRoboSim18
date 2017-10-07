@@ -48,7 +48,7 @@ public class Wheel implements DcMotor {
 	
 	public void update(double dt) {
 		if (power != 0)
-			attachment.getBody().applyImpulse(new Vec2(direction + attachment.getBody().direction()).scaled(power * radius * 1000), attachment.getPoint());
+			attachment.getBody().applyImpulse(new Vec2(direction + attachment.getBody().direction()).scaled(power * radius * 3000), attachment.getPoint());
 	}
 
 	public Direction getDirection() {

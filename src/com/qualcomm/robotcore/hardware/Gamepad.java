@@ -2,7 +2,23 @@ package com.qualcomm.robotcore.hardware;
 
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
-
+// Index of each button in the controller's component array:
+// 0 Y axis of left joystick
+// 1 X axis of left joystick
+// 2 Y axis (rotation) of right joystick
+// 3 X axis (rotation) of right joystick
+// 4 Left trigger Z axis = positive; right trigger Z axis = negative
+// 5 A button
+// 6 B button
+// 7 X button
+// 8 Y button
+// 9 Left Bumper button
+// 10 Right Bumper button
+// 11 Back button
+// 12 Start button
+// 13 Push down on left joystick button
+// 14 Push down on right joystick button
+// 15 D-Pad; up - 0.25; left - 1.0; right - 0.5; down - 0.75
 public class Gamepad {
 
 	public boolean a, b, x, y;
@@ -77,24 +93,10 @@ public class Gamepad {
 			// Bumpers
 			left_bumper = components[9].getPollData() == 1;
 			right_bumper = components[10].getPollData() == 1;
-
-			// 0 Y axis of left joystick
-			// 1 X axis of left joystick
-			// 2 Y axis (rotation) of right joystick
-			// 3 X axis (rotation) of right joystick
-			// 4 Left trigger Z axis = positive; right trigger Z axis = negative
-			// 5 A button
-			// 6 B button
-			// 7 X button
-			// 8 Y button
-			// 9 Left Bumper button
-			// 10 Right Bumper button
-			// 11 Back button
-			// 12 Start button
-			// 13 Push down on left joystick button
-			// 14 Push down on right joystick button
-			// 15 D-Pad; up - 0.25; left - 1.0; right - 0.5; down - 0.75
 		}
 	}
 
+	public boolean equals(Gamepad g) {
+		return (g == null && controller == null) || g.controller == controller;
+	}
 }
