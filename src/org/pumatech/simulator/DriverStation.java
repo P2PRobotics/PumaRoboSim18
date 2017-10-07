@@ -107,6 +107,12 @@ public class DriverStation {
 		triangle(g, new Vec2(32, 353), new Vec2(84, 353), new Vec2(58, 391), Color.WHITE);
 		triangle(g, new Vec2(423, 353), new Vec2(474, 353), new Vec2(449, 391), Color.WHITE);
 		
+		// Start, stop, and init buttons
+		g.setColor(RED[7]);
+		GraphicsLib.drawStringCentered(g, "INIT", 218, 545, 50);
+		triangle(g, new Vec2(200, 525), new Vec2(200, 575), new Vec2(250, 550), RED[7]);
+		rect(g, 200, 530, 40, 40, RED[7]);
+		
 		// Draw line dividing DS from rest of simulation
 		g.setColor(Color.WHITE);
 		g.drawLine((int) (505 * PIXEL), -30, (int) (505 * PIXEL), 2000);
