@@ -134,4 +134,5 @@ public abstract class Body {
 	public double getAngularVelocity() {
 		return angularVel;
 	}
+
 }

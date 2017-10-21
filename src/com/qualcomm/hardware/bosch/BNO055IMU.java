@@ -2,11 +2,14 @@ package com.qualcomm.hardware.bosch;
 
 import org.pumatech.physics.Body;
 
-public class BNO055IMU {
-	private Body body;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 
-	public BNO055IMU(Body corpse) {
-		body = corpse;
-		System.out.println(body);
+public class BNO055IMU implements HardwareDevice  {
+	private Body b;
+	public BNO055IMU(Body b) {
+		this.b = b;
+	}
+	public double getOrientation() {
+		return b.direction();
 	}
 }

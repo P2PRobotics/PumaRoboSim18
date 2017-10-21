@@ -11,6 +11,7 @@ import org.pumatech.physics.Material;
 import org.pumatech.physics.Polygon;
 import org.pumatech.physics.Vec2;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Robot {
@@ -18,10 +19,12 @@ public class Robot {
 	private Wheel w1, w2, w3, w4;
 	private Body chassis;
 	private HardwareMap hardwareMap;
+	private BNO055IMU imu;
 
 	public Robot(Vec2 pos) {
 		Vec2[] vertices = { new Vec2(9, 9), new Vec2(-9, 9), new Vec2(-9, -9), new Vec2(9, -9) };
 		chassis = new Polygon(vertices, Material.WOOD);
+	
 		w1 = new Wheel(2, -Math.PI / 4, chassis.getAttachment(new Vec2(8, 8)));
 		w2 = new Wheel(2, Math.PI / 4, chassis.getAttachment(new Vec2(8, -8)));
 		w3 = new Wheel(2, -Math.PI / 4, chassis.getAttachment(new Vec2(-8, -8)));
@@ -35,6 +38,10 @@ public class Robot {
 		hardwareMap.dcMotor.put("w2", w2);
 		hardwareMap.dcMotor.put("w3", w3);
 		hardwareMap.dcMotor.put("w4", w4);
+		
+		imu= new BNO055IMU(chassis);
+		
+		hardwareMap.imu.put("imu",imu);
 	}
 
 	public void draw(Graphics2D g) {
