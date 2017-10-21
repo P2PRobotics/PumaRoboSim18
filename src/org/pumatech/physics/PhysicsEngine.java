@@ -43,7 +43,7 @@ public class PhysicsEngine {
 	public void draw(Graphics2D g) {
 		// Draw a dot in the center of each body
 		for (Body b : bodies) {
-			g.fill(new Ellipse2D.Double(b.centerPoint().x - 1.5, b.centerPoint().y - 1.5, 3, 3));
+			g.fill(new Ellipse2D.Double(b.centerPoint().x - 1, b.centerPoint().y - 1, 2, 2));
 		}
 	}
 	

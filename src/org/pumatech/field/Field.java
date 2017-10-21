@@ -15,6 +15,7 @@ public class Field {
 
 	private List<Body> walls;
 	private List<Body> glyphs;
+	private List<Body> crypto;
 	private List<Body> jewels;
 	public Field() {
 		walls = new LinkedList<Body>();
@@ -42,12 +43,57 @@ public class Field {
 		jewels.add (new Polygon(new Vec2(141,30),2,13,Material.WOOD));
 		jewels.add (new Polygon(new Vec2(141,36),2,13,Material.WOOD));
 		glyphs = new LinkedList<Body>();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 8; i++) {
 			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
 			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
-			glyphs.get(i).moveBy(new Vec2(72, 36 + 8 * i));
-//			glyphs.applyForce(glyphs.getVelocity().scaled(-10000*dt));
+			glyphs.get(glyphs.size()-1).moveBy(new Vec2(72, 32 + 8 * i));
 		}
+		for (int i = 0; i < 3; i++) {
+			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+			glyphs.get(glyphs.size()-1).moveBy(new Vec2(92, 52 + 8 * i));
+		}
+		for (int i = 0; i < 3; i++) {
+			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+			glyphs.get(glyphs.size()-1).moveBy(new Vec2(52, 52 + 8 * i));
+		}
+		for (int i = 0; i < 5; i++) {
+			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+			glyphs.get(glyphs.size()-1).moveBy(new Vec2(82, 44 + 8 * i));
+		}
+		for (int i = 0; i < 5; i++) {
+			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+			glyphs.get(glyphs.size()-1).moveBy(new Vec2(62, 44 + 8 * i));
+		}
+		
+		crypto = new LinkedList<Body>();
+		for (int i = 0; i < 4; i++) {
+			Vec2[] cryptoBoxVert = {new Vec2(0.5,2), new Vec2(-0.5, 2), new Vec2(-0.5 -2), new Vec2(0.5, -2) };
+			Vec2[] cryptoBoxHoriz = {new Vec2(2,0.5), new Vec2(-2, 0.5), new Vec2(-2, -0.5), new Vec2(2, -0.5) };
+			crypto.add(new Polygon(cryptoBoxHoriz, Material.IMMOVEABLE));
+			crypto.get(crypto.size()-1).moveBy(new Vec2(142, 48 + 7 * i));
+		}
+//		for (int i = 0; i < 4; i++) {
+//			Vec2[] cryptoBoxVert = {new Vec2(0.5,2), new Vec2(-0.5, 2), new Vec2(-0.5 -2), new Vec2(0.5, -2) };
+//			Vec2[] cryptoBoxHoriz = {new Vec2(2,0.5), new Vec2(-2, 0.5), new Vec2(-2, -0.5), new Vec2(2, -0.5) };
+//			crypto.add(new Polygon(cryptoBoxVert, Material.IMMOVEABLE));
+//			crypto.get(crypto.size()-1).moveBy(new Vec2(24 + 7 * i,142));
+//		}
+//		for (int i = 0; i < 4; i++) {
+//			Vec2[] cryptoBoxVert = {new Vec2(0.5,2), new Vec2(-0.5, 2), new Vec2(-0.5 -2), new Vec2(0.5, -2) };
+//			Vec2[] cryptoBoxHoriz = {new Vec2(2,0.5), new Vec2(-2, 0.5), new Vec2(-2, -0.5), new Vec2(2, -0.5) };
+//			crypto.add(new Polygon(cryptoBoxHoriz, Material.IMMOVEABLE));
+//			crypto.get(crypto.size()-1).moveBy(new Vec2(2, 48 + 7 * i));
+//		}
+//		for (int i = 0; i < 4; i++) {
+//			Vec2[] cryptoBoxVert = {new Vec2(0.5,2), new Vec2(-0.5, 2), new Vec2(-0.5 -2), new Vec2(0.5, -2) };
+//			Vec2[] cryptoBoxHoriz = {new Vec2(2,0.5), new Vec2(-2, 0.5), new Vec2(-2, -0.5), new Vec2(2, -0.5) };
+//			crypto.add(new Polygon(cryptoBoxVert, Material.IMMOVEABLE));
+//			crypto.get(crypto.size()-1).moveBy(new Vec2(96 + 7 * i,142));
+//		}
 	}
 
 	public void draw(Graphics2D g) {
@@ -80,6 +126,20 @@ public class Field {
 		for (Body wall : walls) {
 			wall.draw(g);
 		}
+		for (Body box : crypto) {
+			box.draw(g);
+		}
+	}
+	
+	public void update(double dt) {
+		for (Body glyph : glyphs) {
+			glyph.applyForce(glyph.getVelocity().scaled(-2000*dt));
+			glyph.applyTorque(glyph.getAngularVelocity() * -175 * dt);
+		}
+		for (Body jewel : jewels) {
+			jewel.applyForce(jewel.getVelocity().scaled(-100*dt));
+			jewel.applyTorque(jewel.getAngularVelocity() * -175 * dt);
+		}
 	}
 
 	public List<Body> getBodies() {
@@ -87,6 +147,7 @@ public class Field {
 		bodies.addAll(walls);
 		bodies.addAll(glyphs);
 		bodies.addAll(jewels);
+		bodies.addAll(crypto);
 		return bodies;
 	}
 

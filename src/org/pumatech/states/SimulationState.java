@@ -107,6 +107,7 @@ public class SimulationState extends State {
 	public void update(double dt) {
 		ds.update(dt);
 		robot.update(dt);
+		field.update(dt);
 		cam.update(dt);
 		viewer.update(dt);
 		engine.update(dt);

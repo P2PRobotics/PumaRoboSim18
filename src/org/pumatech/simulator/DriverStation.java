@@ -3,13 +3,14 @@ package org.pumatech.simulator;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.MouseInfo;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
 
+import org.firstinspires.ftc.robotcore.external.GUITelemetry;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.BasicTeleOp;
 import org.pumatech.field.Field;
 import org.pumatech.physics.Vec2;
@@ -33,6 +34,7 @@ public class DriverStation {
 	private Gamepad gamepad1, gamepad2;
 	private List<Class<? extends OpMode>> teleopOpModes, autonomousOpModes;
 	private boolean hasInit, isRun;
+	private Telemetry telemetry;
 
 	public DriverStation(Robot robot, Field field) {
 		this.robot = robot;
@@ -64,6 +66,7 @@ public class DriverStation {
 		opmode.init();
 		hasInit = true;
 		isRun = true;
+		telemetry = new GUITelemetry();
 		
 	}
 
@@ -119,7 +122,8 @@ public class DriverStation {
 		} else {
 			rect(g, 199, 530, 40, 40, RED[7]);
 		}
-
+		
+		telemetry.draw(g);
 		// Draw line dividing DS from rest of simulation
 		g.setColor(Color.WHITE);
 		g.drawLine((int) (505 * PIXEL), -30, (int) (505 * PIXEL), 2000);
@@ -179,6 +183,7 @@ public class DriverStation {
 			if (!hasInit) {
 				hasInit = true;
 				opmode.init();
+				telemetry.addData("init",true );
 			} else if (!isRun) {
 				isRun = true;
 				opmode.start();
