@@ -35,15 +35,13 @@ public class SimulationState extends State {
 	private List<Controller> gamepads;
 	
 	public SimulationState() {
+		engine = new PhysicsEngine();
 		// Initialize robot and field
-		robot = new Robot(new Vec2(25, 25));
+		robot = new Robot(new Vec2(25, 120), engine);
 		field = new Field();
 		
-		// Get physical bodies for simulation and initialize physics engine to simulate those bodies
-		List<Body> bodies = new LinkedList<Body>();
-		bodies.addAll(robot.getBodies());
-		bodies.addAll(field.getBodies());
-		engine = new PhysicsEngine(bodies);
+		engine.addBodies(robot.getBodies());
+		engine.addBodies(field.getBodies());
 		
 		// Camera follows the viewer body (not being simulated), which moves with arrow keys
 		viewer = new Body(null) {

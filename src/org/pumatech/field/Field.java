@@ -34,14 +34,14 @@ public class Field {
 		walls.add(wall3);
 		walls.add(wall4);
 		jewels=new LinkedList<Body>();
-		jewels.add (new Polygon(new Vec2(3,108),2,13,Material.WOOD));
-		jewels.add (new Polygon(new Vec2(3,102),2,13,Material.WOOD));
-		jewels.add (new Polygon(new Vec2(3,30),2,13,Material.WOOD));
-		jewels.add (new Polygon(new Vec2(3,36),2,13,Material.WOOD));
-		jewels.add (new Polygon(new Vec2(141,108),2,13,Material.WOOD));
-		jewels.add (new Polygon(new Vec2(141,102),2,13,Material.WOOD));
-		jewels.add (new Polygon(new Vec2(141,30),2,13,Material.WOOD));
-		jewels.add (new Polygon(new Vec2(141,36),2,13,Material.WOOD));
+//		jewels.add (new Polygon(new Vec2(3,108),2,13,Material.WOOD));
+//		jewels.add (new Polygon(new Vec2(3,102),2,13,Material.WOOD));
+//		jewels.add (new Polygon(new Vec2(3,30),2,13,Material.WOOD));
+//		jewels.add (new Polygon(new Vec2(3,36),2,13,Material.WOOD));
+//		jewels.add (new Polygon(new Vec2(141,108),2,13,Material.WOOD));
+//		jewels.add (new Polygon(new Vec2(141,102),2,13,Material.WOOD));
+//		jewels.add (new Polygon(new Vec2(141,30),2,13,Material.WOOD));
+//		jewels.add (new Polygon(new Vec2(141,36),2,13,Material.WOOD));
 		glyphs = new LinkedList<Body>();
 		for (int i = 0; i < 8; i++) {
 			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };

@@ -8,11 +8,13 @@ import java.util.List;
 
 import org.pumatech.physics.Body;
 import org.pumatech.physics.Material;
+import org.pumatech.physics.PhysicsEngine;
 import org.pumatech.physics.Polygon;
 import org.pumatech.physics.Vec2;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.ModernRoboticsI2cRangeSensor;
 
 public class Robot {
 
@@ -20,8 +22,9 @@ public class Robot {
 	private Body chassis;
 	private HardwareMap hardwareMap;
 	private BNO055IMU imu;
+	private ModernRoboticsI2cRangeSensor rangeSensor;
 
-	public Robot(Vec2 pos) {
+	public Robot(Vec2 pos, PhysicsEngine engine) {
 		Vec2[] vertices = { new Vec2(9, 9), new Vec2(-9, 9), new Vec2(-9, -9), new Vec2(9, -9) };
 		chassis = new Polygon(vertices, Material.WOOD);
 	
@@ -39,6 +42,9 @@ public class Robot {
 		hardwareMap.dcMotor.put("w3", w3);
 		hardwareMap.dcMotor.put("w4", w4);
 		
+		rangeSensor = new ModernRoboticsI2cRangeSensor(chassis.getAttachment(pos.added(new Vec2(0, -9))), 0, engine);
+		hardwareMap.range.put("sensor_range", rangeSensor);
+		
 		imu= new BNO055IMU(chassis);
 		
 		hardwareMap.imu.put("imu",imu);
@@ -54,6 +60,7 @@ public class Robot {
 		Vec2 dir = new Vec2(chassis.direction() - Math.PI / 2).scaled(9);
 		Vec2 pos = chassis.centerPoint();
 		g.draw(new Line2D.Double(pos.x, pos.y, pos.x + dir.x, pos.y + dir.y));
+		rangeSensor.draw(g);
 	}
 
 	public void update(double dt) {
@@ -63,6 +70,7 @@ public class Robot {
 		w4.update(dt);
 		chassis.applyForce(chassis.getVelocity().scaled(-10000*dt));
 		chassis.applyTorque(chassis.getAngularVelocity() * -175 * dt);
+		rangeSensor.update(dt);
 	}
 
 	public List<Body> getBodies() {

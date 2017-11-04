@@ -1,5 +1,6 @@
 package org.pumatech.physics;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.util.LinkedList;
@@ -10,6 +11,10 @@ public class PhysicsEngine {
 
 	// Bodies being simulated
 	private List<Body> bodies;
+	
+	public PhysicsEngine() {
+		bodies = new LinkedList<Body>();
+	}
 	
 	public PhysicsEngine(List<Body> bodies) {
 		this.bodies = bodies;
@@ -42,6 +47,7 @@ public class PhysicsEngine {
 	
 	public void draw(Graphics2D g) {
 		// Draw a dot in the center of each body
+		g.setColor(Color.GREEN);
 		for (Body b : bodies) {
 			g.fill(new Ellipse2D.Double(b.centerPoint().x - 1, b.centerPoint().y - 1, 2, 2));
 		}
@@ -63,5 +69,9 @@ public class PhysicsEngine {
 	
 	public void addBody(Body b) {
 		bodies.add(b);
+	}
+	
+	public void addBodies(List<Body> bodies) {
+		this.bodies.addAll(bodies);
 	}
 }

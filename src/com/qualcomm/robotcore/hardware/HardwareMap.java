@@ -9,9 +9,11 @@ public class HardwareMap {
 
 	public DeviceMapping<DcMotor> dcMotor;
 	public DeviceMapping<BNO055IMU> imu;
+	public DeviceMapping<ModernRoboticsI2cRangeSensor> range;
 	public HardwareMap() {
 		dcMotor = new DeviceMapping<DcMotor>();
 		imu =new DeviceMapping<BNO055IMU>();
+		range =new DeviceMapping<ModernRoboticsI2cRangeSensor>();
 	}
 	
 	public class DeviceMapping<D extends HardwareDevice> {
