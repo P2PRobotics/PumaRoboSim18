@@ -25,10 +25,10 @@ public class Robot {
 		Vec2[] vertices = { new Vec2(9, 9), new Vec2(-9, 9), new Vec2(-9, -9), new Vec2(9, -9) };
 		chassis = new Polygon(vertices, Material.WOOD);
 	
-		w1 = new Wheel(2, -Math.PI / 4, chassis.getAttachment(new Vec2(8, 8)));
-		w2 = new Wheel(2, Math.PI / 4, chassis.getAttachment(new Vec2(8, -8)));
-		w3 = new Wheel(2, -Math.PI / 4, chassis.getAttachment(new Vec2(-8, -8)));
-		w4 = new Wheel(2, Math.PI / 4, chassis.getAttachment(new Vec2(-8, 8)));
+		w1 = new Wheel(2, Math.PI / 4, chassis.getAttachment(new Vec2(8, -8)));
+		w2 = new Wheel(2, -Math.PI / 4, chassis.getAttachment(new Vec2(-8, -8)));
+		w3 = new Wheel(2, Math.PI / 4, chassis.getAttachment(new Vec2(-8, 8)));
+		w4 = new Wheel(2, -Math.PI / 4, chassis.getAttachment(new Vec2(8, 8)));
 
 		chassis.moveBy(pos);
 

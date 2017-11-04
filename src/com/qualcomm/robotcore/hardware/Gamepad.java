@@ -60,9 +60,9 @@ public class Gamepad {
 			b = components[6].getPollData() == 1;
 			x = components[7].getPollData() == 1;
 			y = components[8].getPollData() == 1;
-			if(x) {
-				System.exit(0)  ;
-			}
+//			if(x) {
+//				System.exit(0)  ;
+//			}
 			// Joysticks
 			left_stick_x = components[0].getPollData();
 			left_stick_y = components[1].getPollData();
