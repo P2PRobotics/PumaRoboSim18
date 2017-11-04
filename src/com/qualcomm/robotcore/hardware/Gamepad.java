@@ -2,6 +2,7 @@ package com.qualcomm.robotcore.hardware;
 
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
+
 // Index of each button in the controller's component array:
 // 0 Y axis of left joystick
 // 1 X axis of left joystick
@@ -48,6 +49,9 @@ public class Gamepad {
 
 			// TRIGGERED
 			double trigger = components[4].getPollData();
+			if (trigger < .001&&trigger>-.001) {
+				trigger = 0;
+			}
 			if (trigger > 0) {
 				left_trigger = (float) trigger;
 			}
@@ -60,15 +64,27 @@ public class Gamepad {
 			b = components[6].getPollData() == 1;
 			x = components[7].getPollData() == 1;
 			y = components[8].getPollData() == 1;
-//			if(x) {
-//				System.exit(0)  ;
-//			}
+			// if(x) {
+			// System.exit(0) ;
+			// }
 			// Joysticks
 			left_stick_x = components[0].getPollData();
 			left_stick_y = components[1].getPollData();
 			right_stick_x = components[2].getPollData();
 			right_stick_y = components[3].getPollData();
-
+			System.out.println(right_stick_y+":"+right_stick_x);
+			if (left_stick_x < .01) {
+				left_stick_x = 0;
+			}
+			if (left_stick_y < .01) {
+				left_stick_y = 0;
+			}
+			if (right_stick_x < .01&&right_stick_x > -.01) {
+				right_stick_x = 0;
+			}
+			if (right_stick_y < .01&&right_stick_y > -.01) {
+				right_stick_y = 0;
+			}
 			// D-Pad
 			double dpad = components[15].getPollData();
 			if (dpad < .25 && dpad > .75) {
