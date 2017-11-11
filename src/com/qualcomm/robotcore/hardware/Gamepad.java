@@ -49,13 +49,13 @@ public class Gamepad {
 
 			// TRIGGERED
 			double trigger = components[4].getPollData();
-			if (trigger < .001&&trigger>-.001) {
+			if (trigger < .01 && trigger > -.01) {
 				trigger = 0;
 			}
-			if (trigger > 0) {
+			if (trigger >= 0) {
 				left_trigger = (float) trigger;
 			}
-			if (trigger < 0) {
+			if (trigger <= 0) {
 				right_trigger = (float) -trigger;
 			}
 
@@ -72,17 +72,17 @@ public class Gamepad {
 			left_stick_y = components[1].getPollData();
 			right_stick_x = components[2].getPollData();
 			right_stick_y = components[3].getPollData();
-			System.out.println(right_stick_y+":"+right_stick_x);
+			System.out.println(right_stick_y + ":" + right_stick_x);
 			if (left_stick_x < .01) {
 				left_stick_x = 0;
 			}
 			if (left_stick_y < .01) {
 				left_stick_y = 0;
 			}
-			if (right_stick_x < .01&&right_stick_x > -.01) {
+			if (right_stick_x < .01 && right_stick_x > -.01) {
 				right_stick_x = 0;
 			}
-			if (right_stick_y < .01&&right_stick_y > -.01) {
+			if (right_stick_y < .01 && right_stick_y > -.01) {
 				right_stick_y = 0;
 			}
 			// D-Pad

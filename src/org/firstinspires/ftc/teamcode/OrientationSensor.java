@@ -15,6 +15,6 @@ public double getOrientation() {
 	}else if(phat<-180) {
 		phat=360+phat;
 	}
-	return phat;
+	return -phat;
 }
 }
