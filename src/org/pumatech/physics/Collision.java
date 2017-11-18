@@ -9,7 +9,9 @@ public class Collision {
 	private Vec2 normal;
 	// Depth is the distance along the collision normal that two colliding objects overlap
 	private double depth;
+	// Contact point is the point where the normal occurs at
 	private Vec2 contactPoint;
+	// a and b are the colliding bodies
 	public Body a, b;
 	
 	public Collision(Body a, Body b) {
@@ -25,6 +27,9 @@ public class Collision {
 	}
 	
 	public void resolve() {
+		// Resolves a collision using newton's laws.
+		// This is complicated and I feel too lazy to comment it months after writing it. :( TODO comment
+		// TODO fix friction with Polygons colliding
 		if (depth <= 0)
 			return;
 		
@@ -65,6 +70,7 @@ public class Collision {
 	}
 	
 	private void calcCollision() {
+		// Calculates collision normal and depth using different methods for different collision types
 		if (a instanceof AABB && b instanceof AABB) {
 			AABBvsAABB((AABB) a, (AABB) b);
 		} else if (a instanceof Circle && b instanceof AABB) {
@@ -81,6 +87,7 @@ public class Collision {
 		}
 	}
 	
+	// TODO finish commenting collision calculation methods
 	private void AABBvsAABB(AABB a, AABB b) {
 		// Calculates x and y overlap between both AABBs
 		double xOverlap = Math.min(b.getPosB().x - a.getPosA().x, a.getPosB().x - b.getPosA().x);

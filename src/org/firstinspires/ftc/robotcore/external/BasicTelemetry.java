@@ -1,4 +1,6 @@
-package org.firstinspires.ftc.robotcore.external;
+	package org.firstinspires.ftc.robotcore.external;
+
+import java.awt.Graphics2D;
 
 public class BasicTelemetry implements Telemetry {
 
@@ -13,6 +15,12 @@ public class BasicTelemetry implements Telemetry {
 
 	public boolean update() {
 		return false;
+	}
+
+	@Override
+	public void draw(Graphics2D g) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -2,8 +2,8 @@ package org.pumatech.physics;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
-import java.util.Arrays;
 
+// TODO comment
 public class Polygon extends Body {
 
 	private Vec2 pos;
@@ -40,7 +40,6 @@ public class Polygon extends Body {
 			prev = vertex;
 		}
 		normals[0] = first.subtracted(prev).cross(1).normalized();
-		System.out.println(Arrays.toString(normals));
 	}
 	
 	public void draw(Graphics2D g) {
@@ -77,9 +76,7 @@ public class Polygon extends Body {
 			area += Math.abs(point.cross(prev) / 2);
 			prev = point;
 		}
-		System.out.println(area);
 		area += Math.abs(prev.cross(first) / 2);
-		System.out.println(area);
 		return area;
 	}
 

@@ -3,6 +3,7 @@ package org.pumatech.physics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 
+// Defines a circle as a point and a radius
 public class Circle extends Body {
 	private Vec2 pos;
 	private double radius;
@@ -14,6 +15,7 @@ public class Circle extends Body {
 	}
 
 	public void draw(Graphics2D g) {
+		// Draws an ellipse2D (double precision drawing) in the color of circle material
 		g.setColor(mat.color());
 		g.draw(new Ellipse2D.Double(pos.x - radius, pos.y - radius, 2 * radius, 2 * radius));
 	}
@@ -35,7 +37,7 @@ public class Circle extends Body {
 	}
 	
 	public double direction() {
-		return 0;
+		return 0; // TODO actual rotation 
 	}
 	
 	public double getRadius() {
@@ -47,6 +49,7 @@ public class Circle extends Body {
 	}
 
 	public boolean isColliding(Body b) {
+		// TODO check collisions with Polygons
 		if (b instanceof Circle) {
 			Circle other = (Circle) b;
 			return other.pos.distanceSquared(pos) < (other.radius + radius) * (other.radius + radius);
@@ -55,5 +58,4 @@ public class Circle extends Body {
 		}
 		return false;
 	}
-
 }

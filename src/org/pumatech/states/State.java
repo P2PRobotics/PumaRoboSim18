@@ -1,12 +1,12 @@
 package org.pumatech.states;
 
+import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-
-import org.pumatech.simulator.Drawable;
+import java.awt.event.MouseWheelEvent;
 
 // Top level class representing a state such as the main menu, autonomous, teleop, etc.
-public abstract class State implements Drawable {
+public abstract class State {
 	// Signifies that this state is finished executing and to go the the previous game state
 	private boolean done;
 	// Tells container (Simulator) what state to enter next
@@ -25,7 +25,7 @@ public abstract class State implements Drawable {
 	}
 
 	// Abstract methods to be implemented by concrete states
-	public abstract void draw(Graphics2D g);
+	public abstract void draw(Graphics2D g, Dimension d);
 	public abstract void update(double dt);
 
 	// Returning anything non null will cause returned state to be pushed on the state stack
@@ -56,6 +56,9 @@ public abstract class State implements Drawable {
 		if (k < keyDown.length)
 			keyDown[k] = false;
 	}
+	
+	// Event handler for mouse scroll wheel movement. No default behavior.
+	public void mouseWheelMoved(MouseWheelEvent e) { }
 	
 	// Other unused event handlers
 	public void mouseClicked(MouseEvent e) {}
