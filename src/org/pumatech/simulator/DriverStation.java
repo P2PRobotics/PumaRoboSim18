@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.firstinspires.ftc.robotcore.external.GUITelemetry;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Autonomous;
+import org.firstinspires.ftc.teamcode.BasicTeleOp;
 import org.pumatech.field.Field;
 import org.pumatech.physics.Vec2;
 import org.pumatech.robot.Robot;
@@ -61,11 +61,13 @@ public class DriverStation {
 		// }
 
 		// Initialize opmode and connect it to robot and gamepads (and telemetry later)
-		opmode = new Autonomous();
+		//opmode = new Autonomous();
+		opmode = new BasicTeleOp();
 		opmode.setup(robot.getHardwareMap(), gamepad1, gamepad2);
 		opmode.init();
-		hasInit = true;
-		isRun = true;
+		opmode.start();
+		//hasInit = true;//true;
+		//isRun = true;//true;
 		telemetry = new GUITelemetry();
 		
 	}

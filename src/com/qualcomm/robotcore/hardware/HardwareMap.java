@@ -4,16 +4,20 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 
 public class HardwareMap {
 
 	public DeviceMapping<DcMotor> dcMotor;
 	public DeviceMapping<BNO055IMU> imu;
 	public DeviceMapping<ModernRoboticsI2cRangeSensor> range;
+	public DeviceMapping<Servo> servo;
+	
 	public HardwareMap() {
 		dcMotor = new DeviceMapping<DcMotor>();
-		imu =new DeviceMapping<BNO055IMU>();
+		imu = new DeviceMapping<BNO055IMU>();
 		range =new DeviceMapping<ModernRoboticsI2cRangeSensor>();
+		servo = new DeviceMapping<Servo>();
 	}
 	
 	public class DeviceMapping<D extends HardwareDevice> {

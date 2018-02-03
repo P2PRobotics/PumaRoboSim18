@@ -13,8 +13,8 @@ import org.pumatech.physics.Polygon;
 import org.pumatech.physics.Vec2;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.ModernRoboticsI2cRangeSensor;
 
 public class Robot {
 
@@ -23,6 +23,7 @@ public class Robot {
 	private HardwareMap hardwareMap;
 	private BNO055IMU imu;
 	private ModernRoboticsI2cRangeSensor rangeSensor;
+	private USPivot usp;
 
 	public Robot(Vec2 pos, PhysicsEngine engine) {
 		Vec2[] vertices = { new Vec2(9, 9), new Vec2(-9, 9), new Vec2(-9, -9), new Vec2(9, -9) };
@@ -43,10 +44,14 @@ public class Robot {
 		hardwareMap.dcMotor.put("w4", w4);
 		
 		rangeSensor = new ModernRoboticsI2cRangeSensor(chassis.getAttachment(pos.added(new Vec2(7, -9))), 0, engine);
-		hardwareMap.range.put("sensor_range", rangeSensor);
-		chassis.rotateBy(Math.PI);
-		imu= new BNO055IMU(chassis);
+		hardwareMap.range.put("range", rangeSensor);
 		
+		usp = new USPivot(rangeSensor);
+		hardwareMap.servo.put("usp", usp);
+		
+		chassis.rotateBy(Math.PI);
+		
+		imu= new BNO055IMU(chassis);
 		hardwareMap.imu.put("imu",imu);
 	}
 

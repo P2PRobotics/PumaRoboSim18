@@ -19,8 +19,8 @@ public class BasicTeleOp extends OpMode {
 
 	private OrientationSensor orientationSensor;
 
-	public static final boolean moveRelative = false;
-	public static final boolean turnRelative = false;
+	public static final boolean moveRelative = true;
+	public static final boolean turnRelative = true;
 
 	// private double pos = 0.5;
 
@@ -45,15 +45,34 @@ public class BasicTeleOp extends OpMode {
 		double dirx = gamepad1.left_stick_x;
 		double diry = gamepad1.left_stick_y;
 
-		if (moveRelative && turnRelative)
+		
+		move(-y, -x, -dir);
+		
+		/*if (moveRelative && turnRelative)
 			moveRR(x, y, dir);
 		if (!moveRelative && turnRelative)
 			moveRA(x, y, dir);
 		if (!moveRelative && !turnRelative)
 			moveAA(x, y, dirx, diry);
 		if (moveRelative && !turnRelative)
-			moveAR(x, y, dirx, diry);
+			moveAR(x, y, dirx, diry);*/
 	}
+	
+    public void move(double x, double y, double dir) {
+        if (dir != 0) { // Rotating
+            motor1.setPower(dir);
+            motor2.setPower(dir);
+            motor3.setPower(-dir);
+            motor4.setPower(-dir);
+        } else { // Translating
+            double n = ((x + y) / Math.sqrt(2.0)); // n is the power of the motors in the +x +y direction
+            double m = ((x - y) / Math.sqrt(2.0)); // m is the power of the motors in the +x -y direction
+            motor1.setPower(m);
+            motor2.setPower(n);
+            motor3.setPower(m);
+            motor4.setPower(n);
+        }
+    }
 
 	// double x = gamepad1.right_stick_x;
 	// double y = gamepad1.right_stick_y;

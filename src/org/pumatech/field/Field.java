@@ -34,8 +34,8 @@ public class Field {
 		walls.add(wall3);
 		walls.add(wall4);
 		jewels=new LinkedList<Body>();
-//		jewels.add (new Polygon(new Vec2(3,108),2,13,Material.WOOD));
-//		jewels.add (new Polygon(new Vec2(3,102),2,13,Material.WOOD));
+		jewels.add (new Polygon(new Vec2(3,108),2,13, Material.WOOD1));
+		jewels.add (new Polygon(new Vec2(3,102),2,13, Material.WOOD2));
 //		jewels.add (new Polygon(new Vec2(3,30),2,13,Material.WOOD));
 //		jewels.add (new Polygon(new Vec2(3,36),2,13,Material.WOOD));
 //		jewels.add (new Polygon(new Vec2(141,108),2,13,Material.WOOD));

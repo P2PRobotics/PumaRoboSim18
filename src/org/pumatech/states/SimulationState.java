@@ -86,6 +86,7 @@ public class SimulationState extends State {
         System.out.println("Searching for input devices...");				
         Controller[] ca = ControllerEnvironment.getDefaultEnvironment().getControllers();
         for (Controller c : ca) {
+        	System.out.println(c);
         	if (c.getType() == Controller.Type.GAMEPAD)
         		gamepads.add(c);
         }
@@ -114,9 +115,16 @@ public class SimulationState extends State {
 			c.poll();
 			
 			Component[] components = c.getComponents();
-			if (components[12].getPollData() == 1 && components[5].getPollData() == 1) {
+			for (int i = 0; i < components.length; i++) {
+				System.out.println(i + " " + components[i] + " " + components[i].getPollData());
+				
+			}
+			//System.out.println(">>>> " + components);
+			if (components[7].getPollData() == 1 && components[0].getPollData() == 1) {
+				System.out.println("a");
 				ds.setGamepad1(new Gamepad(c));
-			} else if (components[12].getPollData() == 1 && components[6].getPollData() == 1) {
+			} else if (components[7].getPollData() == 1 && components[1].getPollData() == 1) {
+				System.out.println("b");
 				ds.setGamepad2(new Gamepad(c));
 			}
 		}

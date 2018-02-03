@@ -1,17 +1,19 @@
 
-package com.qualcomm.robotcore.hardware;
+package com.qualcomm.hardware.modernrobotics;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.util.List;
 
-import org.firstinsires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.pumatech.physics.Attachment;
 import org.pumatech.physics.Body;
 import org.pumatech.physics.PhysicsEngine;
 import org.pumatech.physics.Polygon;
 import org.pumatech.physics.Vec2;
+
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 
 public class ModernRoboticsI2cRangeSensor implements HardwareDevice {
 
@@ -24,6 +26,10 @@ public class ModernRoboticsI2cRangeSensor implements HardwareDevice {
 		this.attachment = attachment;
 		this.direction = direction;
 		this.engine = engine;
+	}
+	
+	public void setDirection(double direction) {
+		this.direction = direction;
 	}
 	
 	public double getDistance(DistanceUnit unit) {
@@ -65,7 +71,13 @@ public class ModernRoboticsI2cRangeSensor implements HardwareDevice {
 	private Vec2 getVision(Vec2 a, Vec2 b) {
 		Vec2 pos = attachment.getPoint();
 //		System.out.println(pos + " " + a + " " + b + " " + (direction - attachment.getBody().direction() + Math.PI / 2));
-		
+		if (a.y == b.y) {
+			double angle = direction - attachment.getBody().direction();
+			Vec2 v = new Vec2((a.y - pos.y) * Math.tan(angle), a.y - pos.y);
+			//System.out.println("dir " + new Vec2(-angle - Math.PI / 2));
+			if (v.dot(new Vec2(-angle - Math.PI / 2)) > 0)
+				return v;
+		}
 		a = new Vec2(a.x, -a.y);
 		b = new Vec2(b.x, -b.y);
 		pos = new Vec2(pos.x, -pos.y);
