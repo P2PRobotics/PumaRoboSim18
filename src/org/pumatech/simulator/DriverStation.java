@@ -66,8 +66,8 @@ public class DriverStation {
 		opmode.setup(robot.getHardwareMap(), gamepad1, gamepad2);
 		opmode.init();
 		opmode.start();
-		//hasInit = true;//true;
-		//isRun = true;//true;
+		hasInit = true;//true;
+		isRun = true;//true;
 		telemetry = new GUITelemetry();
 		
 	}

@@ -34,11 +34,15 @@ public class SimulationState extends State {
 	private Field field;
 	private List<Controller> gamepads;
 	
+	private boolean startPressed;
+	
 	public SimulationState() {
 		engine = new PhysicsEngine();
 		// Initialize robot and field
 		robot = new Robot(new Vec2(25, 100), engine);
 		field = new Field();
+		
+		startPressed = false;
 		
 		engine.addBodies(robot.getBodies());
 		engine.addBodies(field.getBodies());
@@ -116,17 +120,38 @@ public class SimulationState extends State {
 			
 			Component[] components = c.getComponents();
 			for (int i = 0; i < components.length; i++) {
-				System.out.println(i + " " + components[i] + " " + components[i].getPollData());
+				//System.out.println(i + " " + components[i] + " " + components[i].getPollData());
 				
 			}
+		
+			// Weston's old gamepad setting system doesn't work - CR
 			//System.out.println(">>>> " + components);
-			if (components[7].getPollData() == 1 && components[0].getPollData() == 1) {
-				System.out.println("a");
-				ds.setGamepad1(new Gamepad(c));
-			} else if (components[7].getPollData() == 1 && components[1].getPollData() == 1) {
-				System.out.println("b");
-				ds.setGamepad2(new Gamepad(c));
+//			if (components[7].getPollData() == 1 && components[0].getPollData() == 1) {
+//				System.out.println("a");
+//				ds.setGamepad1(new Gamepad(c));
+//			} else if (components[7].getPollData() == 1 && components[1].getPollData() == 1) {
+//				System.out.println("b");
+//				ds.setGamepad2(new Gamepad(c));
+//			}
+			
+			// New gamepad setting system, Weston said it worked best - CR
+			for (Component com : components) {
+				if (com.getPollData() == 1) {
+					if (com.getName().equals("Button 7")) {
+						startPressed = true;
+					}
+					if (com.getName().equals("Button 0") && startPressed) {
+						System.out.println("a");
+						ds.setGamepad1(new Gamepad(c));
+						startPressed = false;
+					} else if (com.getName().equals("Button 1") && startPressed) {
+						System.out.println("b");
+						ds.setGamepad2(new Gamepad(c));
+						startPressed = false;
+					}
+				}
 			}
+			
 		}
 	}
 	
@@ -145,4 +170,5 @@ public class SimulationState extends State {
 	public void mousePressed(MouseEvent e) {
 		ds.mousePressed(e);
 	}
+	
 }

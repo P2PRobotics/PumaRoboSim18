@@ -41,7 +41,20 @@ public class BasicTeleOp extends OpMode {
 	public void loop() {
 		double x = gamepad1.right_stick_y;
 		double y = -gamepad1.right_stick_x;
-		double dir = (gamepad1.right_trigger > gamepad1.left_trigger ? -gamepad1.right_trigger : gamepad1.left_trigger);
+		
+		//This line uses some high level java, Weston didnt comment it so I'm going to - CR
+		// The ? and : is basically an if else statement but with 2 symbols
+		// If the stuff in the parenthesis returns true, it will be variable to the left of the colon.
+		// else it will be to the right
+		double dir = (gamepad1.right_trigger > gamepad1.left_trigger) ? -gamepad1.right_trigger : gamepad1.left_trigger;
+		
+		System.out.println("no");
+		System.out.println(gamepad1.left_trigger);
+		System.out.println(gamepad2.left_trigger);
+		System.out.println(dir);
+		System.out.println("yes");
+		
+		
 		double dirx = gamepad1.left_stick_x;
 		double diry = gamepad1.left_stick_y;
 

@@ -37,6 +37,7 @@ public class Gamepad {
 	public float right_stick_x;
 	public float right_stick_y;
 	
+	
 	public int idx_a, idx_b, idx_x, idx_y;
 	public int idx_back;
 	public int idx_guide;
@@ -47,6 +48,7 @@ public class Gamepad {
 	public int idx_right_stick_x;
 	public int idx_right_stick_y;
 	public int idx_dpad;
+	
 
 	private Controller controller;
 
@@ -56,31 +58,33 @@ public class Gamepad {
 			return;
 		Component[] components = controller.getComponents();
 		for (int i = 0; i<components.length; i++) {
-			if (components[i].getName().equals("A")) {
+			if (components[i].getName().equals("Button 0")) {
 				idx_a = i;
-			} else if (components[i].getName().equals("B")) {
+			} else if (components[i].getName().equals("Button 1")) {
 				idx_b = i;
-			} else if (components[i].getName().equals("X")) {
+			} else if (components[i].getName().equals("Button 2")) {
 				idx_x = i;
-			} else if (components[i].getName().equals("Y")) {
+			} else if (components[i].getName().equals("Button 3")) {
 				idx_y = i;
-			} else if (components[i].getName().equals("Left Thumb")) {
+			} else if (components[i].getName().equals("Button 4")) {
 				idx_left_bumper = i;
-			} else if (components[i].getName().equals("Right Thumb")) {
+			} else if (components[i].getName().equals("Button 5")) {
 				idx_right_bumper = i;
-			} else if (components[i].getName().equals("x")) {
+			} else if (components[i].getName().equals("X Axis")) {
 				idx_left_stick_x = i;
-			} else if (components[i].getName().equals("y")) {
+			} else if (components[i].getName().equals("Y Axis")) {
 				idx_left_stick_y = i;
-			} else if (components[i].getName().equals("rx")) {
+			} else if (components[i].getName().equals("X Rotation")) {
 				idx_right_stick_x = i;
-			} else if (components[i].getName().equals("ry")) {
+			} else if (components[i].getName().equals("Y Rotation")) {
 				idx_right_stick_y = i;
-			} else if (components[i].getName().equals("z")) {
+				//The controller object does not have trigger components which is wack - CR
+			} else if (components[i].getName().equals("Button none")) {
 				idx_left_trigger = i;
-			} else if (components[i].getName().equals("rz")) {
+			} else if (components[i].getName().equals("Button none")) {
 				idx_right_trigger = i;
-			} else if (components[i].getName().equals("pov")) {
+				// The dpad just maps to Hat Switch
+			} else if (components[i].getName().equals("Hat Swtich")) {
 				idx_dpad = i;
 			}
 		}
@@ -106,8 +110,9 @@ public class Gamepad {
 //				right_trigger = (float) -trigger;
 //			}
 
-			right_trigger = (components[idx_right_trigger].getPollData() + 1) / 2;
-			left_trigger = (components[idx_left_trigger].getPollData() + 1) / 2;
+			//I am mapping the triggers to the values of the bumpers, see comment where the mapping happens. - CR
+			right_trigger = (components[idx_left_bumper].getPollData() + 1) / 2;
+			left_trigger = (components[idx_right_bumper].getPollData() + 1) / 2;
 
 			// Buttons
 			a = components[idx_a].getPollData() == 1;
@@ -116,28 +121,36 @@ public class Gamepad {
 			y = components[idx_y].getPollData() == 1;
 			// if(x) {
 			// System.exit(0) ;
-			// }
 			// Joysticks
+			
+			
 			left_stick_x = components[idx_left_stick_x].getPollData();
 			left_stick_y = components[idx_left_stick_y].getPollData();
 			right_stick_x = components[idx_right_stick_x].getPollData();
 			right_stick_y = components[idx_right_stick_y].getPollData();
 
-			if (left_stick_x < .01) {
-				left_stick_x = 0;
-			}
-			if (left_stick_y < .01) {
-				left_stick_y = 0;
-			}
-			if (right_stick_x < .01 && right_stick_x > -.01) {
-				right_stick_x = 0;
-			}
-			if (right_stick_y < .01 && right_stick_y > -.01) {
-				right_stick_y = 0;
-			}
+//			if (left_stick_x < .01) {
+//				left_stick_x = 0;
+//			}
+//			if (left_stick_y < .01) {
+//				left_stick_y = 0;
+//			}
+//			if (right_stick_x < .01 && right_stick_x > -.01) {
+//				right_stick_x = 0;
+//			}
+//			if (right_stick_y < .01 && right_stick_y > -.01) {
+//				right_stick_y = 0;
+//			}
+			
 			// D-Pad
+			// dPad is really weird in which it doesn't really have a "index", this for each loop solves that particular problem
 			double dpad = components[idx_dpad].getPollData();
-			if (dpad < .25 && dpad > .75) {
+			for (Component component : components) {
+				if (component.getName().equals("Hat Switch")) {
+					dpad = component.getPollData();
+				}
+			}
+			if (dpad > .75) {
 				dpad_left = true;
 			} else {
 				dpad_left = false;
@@ -158,9 +171,9 @@ public class Gamepad {
 				dpad_down = false;
 			}
 
-			// Bumpers
-			left_bumper = components[idx_left_bumper].getPollData() == 1;
-			right_bumper = components[idx_right_bumper].getPollData() == 1;
+			// Bumpers, I commented this out because I changed the triggers to the bumpers - CR
+			//left_bumper = components[idx_left_bumper].getPollData() == 1;
+			//right_bumper = components[idx_right_bumper].getPollData() == 1;
 		}
 	}
 
