@@ -47,19 +47,13 @@ public class BasicTeleOp extends OpMode {
 		// If the stuff in the parenthesis returns true, it will be variable to the left of the colon.
 		// else it will be to the right
 		double dir = (gamepad1.right_trigger > gamepad1.left_trigger) ? -gamepad1.right_trigger : gamepad1.left_trigger;
-		
-		System.out.println("no");
-		System.out.println(gamepad1.left_trigger);
-		System.out.println(gamepad2.left_trigger);
-		System.out.println(dir);
-		System.out.println("yes");
-		
+				
 		
 		double dirx = gamepad1.left_stick_x;
 		double diry = gamepad1.left_stick_y;
 
 		
-		move(-y, -x, -dir);
+		move(-y, -x, dir);
 		
 		/*if (moveRelative && turnRelative)
 			moveRR(x, y, dir);
@@ -72,7 +66,7 @@ public class BasicTeleOp extends OpMode {
 	}
 	
     public void move(double x, double y, double dir) {
-        if (dir != 0) { // Rotating
+        if (dir != 0.5) { // Rotating
             motor1.setPower(dir);
             motor2.setPower(dir);
             motor3.setPower(-dir);
