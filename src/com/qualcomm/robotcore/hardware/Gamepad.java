@@ -90,6 +90,7 @@ public class Gamepad {
 		}
 		
 	}
+	
 
 	public void update(double dt) {
 		if (controller != null) {
@@ -129,18 +130,7 @@ public class Gamepad {
 			right_stick_x = components[idx_right_stick_x].getPollData();
 			right_stick_y = components[idx_right_stick_y].getPollData();
 
-//			if (left_stick_x < .01) {
-//				left_stick_x = 0;
-//			}
-//			if (left_stick_y < .01) {
-//				left_stick_y = 0;
-//			}
-//			if (right_stick_x < .01 && right_stick_x > -.01) {
-//				right_stick_x = 0;
-//			}
-//			if (right_stick_y < .01 && right_stick_y > -.01) {
-//				right_stick_y = 0;
-//			}
+
 			
 			// D-Pad
 			// dPad is really weird in which it doesn't really have a "index", this for each loop solves that particular problem

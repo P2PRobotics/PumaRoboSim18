@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Robot {
 
-	private Wheel w1, w2, w3, w4;
+	private Wheel w1, w2, w3, w4, w5, w6;
 	private Body chassis;
 	private HardwareMap hardwareMap;
 	private BNO055IMU imu;
@@ -26,13 +26,17 @@ public class Robot {
 	private USPivot usp;
 
 	public Robot(Vec2 pos, PhysicsEngine engine) {
+		
+		
 		Vec2[] vertices = { new Vec2(9, 9), new Vec2(-9, 9), new Vec2(-9, -9), new Vec2(9, -9) };
 		chassis = new Polygon(vertices, Material.WOOD);
 	
-		w1 = new Wheel(2, Math.PI / 4, chassis.getAttachment(new Vec2(8, -8)));
-		w2 = new Wheel(2, -Math.PI / 4, chassis.getAttachment(new Vec2(-8, -8)));
-		w3 = new Wheel(2, Math.PI / 4, chassis.getAttachment(new Vec2(-8, 8)));
-		w4 = new Wheel(2, -Math.PI / 4, chassis.getAttachment(new Vec2(8, 8)));
+		w1 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(8, -8)));
+		w2 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(-8, -8)));
+		w3 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(-8, 8)));
+		w4 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(8, 8)));
+		w5 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(8, 0)));
+		w6 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(-8, 0)));
 
 		chassis.moveBy(pos);	
 		
@@ -42,6 +46,8 @@ public class Robot {
 		hardwareMap.dcMotor.put("w2", w2);
 		hardwareMap.dcMotor.put("w3", w3);
 		hardwareMap.dcMotor.put("w4", w4);
+		hardwareMap.dcMotor.put("w5", w5);
+		hardwareMap.dcMotor.put("w6", w6);
 		
 		rangeSensor = new ModernRoboticsI2cRangeSensor(chassis.getAttachment(pos.added(new Vec2(7, -9))), 0, engine);
 		hardwareMap.range.put("range", rangeSensor);
@@ -61,6 +67,8 @@ public class Robot {
 		w2.draw(g);
 		w3.draw(g);
 		w4.draw(g);
+		w5.draw(g);
+		w6.draw(g);
 		g.setColor(Color.GREEN);
 		Vec2 dir = new Vec2(chassis.direction() - Math.PI / 2).scaled(9);
 		Vec2 pos = chassis.centerPoint();
@@ -73,6 +81,8 @@ public class Robot {
 		w2.update(dt);
 		w3.update(dt);
 		w4.update(dt);
+		w5.update(dt);
+		w6.update(dt);
 		chassis.applyForce(chassis.getVelocity().scaled(-10000*dt));
 		chassis.applyTorque(chassis.getAngularVelocity() * -175 * dt);
 		rangeSensor.update(dt);

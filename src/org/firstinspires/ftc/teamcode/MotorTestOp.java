@@ -9,6 +9,8 @@ public class MotorTestOp extends OpMode {
 	private DcMotor motor2;
 	private DcMotor motor3;
 	private DcMotor motor4;
+	private DcMotor motor5;
+	private DcMotor motor6;
 
 	private OrientationSensor orientationSensor;
 
@@ -22,6 +24,8 @@ public class MotorTestOp extends OpMode {
 		motor2 = hardwareMap.dcMotor.get("w2");
 		motor3 = hardwareMap.dcMotor.get("w3");
 		motor4 = hardwareMap.dcMotor.get("w4");
+		motor5 = hardwareMap.dcMotor.get("w5");
+		motor6 = hardwareMap.dcMotor.get("w6");
 
 		// motor2.setDirection(DcMotorSimple.Direction.REVERSE);
 		// motor3.setDirection(DcMotorSimple.Direction.REVERSE);

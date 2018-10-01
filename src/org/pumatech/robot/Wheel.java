@@ -25,16 +25,20 @@ public class Wheel implements DcMotor {
 	}
 	
 	public void draw(Graphics2D g) {
+		
 		Stroke old = g.getStroke();
 		g.setStroke(new BasicStroke(1));
 		g.setColor(Color.DARK_GRAY);
+		
 		Vec2 point = attachment.getPoint();
 		Vec2 dirVec = new Vec2(direction + attachment.getBody().direction()).scaled(radius);
 		g.draw(new Line2D.Double(point.x - dirVec.x, point.y - dirVec.y, point.x + dirVec.x, point.y + dirVec.y));
 		g.setColor(Color.GRAY);
+		
 		dirVec.scale(.7);
 		g.draw(new Line2D.Double(point.x - dirVec.x, point.y - dirVec.y, point.x + dirVec.x, point.y + dirVec.y));
 		g.setColor(Color.DARK_GRAY);
+		
 		dirVec.scale(.2);
 		g.draw(new Line2D.Double(point.x - dirVec.x, point.y - dirVec.y, point.x + dirVec.x, point.y + dirVec.y));
 		g.setStroke(old);

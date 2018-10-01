@@ -8,6 +8,7 @@ public enum Material {
 	RUBBER (10, 1, .1, new Color(11, 38, 81)),
 	WOOD1(5, 1, .05, Color.RED),
 	WOOD2(5, 1, .05, Color.BLUE),
+	SILVER(5, 1, 0.02, Color.GRAY),
 	IMMOVEABLE (0, .2, .6, Color.DARK_GRAY);
 
 	private double density;

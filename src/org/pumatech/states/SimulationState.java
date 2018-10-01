@@ -39,7 +39,7 @@ public class SimulationState extends State {
 	public SimulationState() {
 		engine = new PhysicsEngine();
 		// Initialize robot and field
-		robot = new Robot(new Vec2(25, 100), engine);
+		robot = new Robot(new Vec2(25, 25), engine);
 		field = new Field();
 		
 		startPressed = false;

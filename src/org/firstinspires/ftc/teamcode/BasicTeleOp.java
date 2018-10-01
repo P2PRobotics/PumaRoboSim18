@@ -16,6 +16,8 @@ public class BasicTeleOp extends OpMode {
 	private DcMotor motor2;
 	private DcMotor motor3;
 	private DcMotor motor4;
+	private DcMotor motor5;
+	private DcMotor motor6;
 
 	private OrientationSensor orientationSensor;
 
@@ -30,6 +32,8 @@ public class BasicTeleOp extends OpMode {
 		motor2 = hardwareMap.dcMotor.get("w2");
 		motor3 = hardwareMap.dcMotor.get("w3");
 		motor4 = hardwareMap.dcMotor.get("w4");
+		motor5 = hardwareMap.dcMotor.get("w5");
+		motor6 = hardwareMap.dcMotor.get("w6");
 
 		// motor2.setDirection(DcMotorSimple.Direction.REVERSE);
 		// motor3.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -51,6 +55,16 @@ public class BasicTeleOp extends OpMode {
 		
 		double dirx = gamepad1.left_stick_x;
 		double diry = gamepad1.left_stick_y;
+		
+		//stops random difting from the controller not being perfectally at 0;
+		if (Math.abs(x) < 0.01) {
+			x = 0;
+		}
+		
+		if (Math.abs(y) < 0.01) {
+			y = 0;
+		}
+		
 
 		
 		move(-y, -x, dir);
@@ -68,17 +82,31 @@ public class BasicTeleOp extends OpMode {
     public void move(double x, double y, double dir) {
         if (dir != 0.5) { // Rotating
             motor1.setPower(dir);
-            motor2.setPower(dir);
+            motor2.setPower(-dir);
             motor3.setPower(-dir);
-            motor4.setPower(-dir);
-        } else { // Translating
-            double n = ((x + y) / Math.sqrt(2.0)); // n is the power of the motors in the +x +y direction
-            double m = ((x - y) / Math.sqrt(2.0)); // m is the power of the motors in the +x -y direction
-            motor1.setPower(m);
-            motor2.setPower(n);
-            motor3.setPower(m);
-            motor4.setPower(n);
+            motor4.setPower(dir);
+            motor5.setPower(dir);
+            motor6.setPower(-dir);
+            // Translating
+        } else {
+        	motor1.setPower(y);
+        	motor2.setPower(y);
+        	motor3.setPower(y);
+        	motor4.setPower(y);
+        	motor5.setPower(y);
+        	motor6.setPower(y);
         }
+            
+//            else { // Translating
+//            double n = ((x + y) / Math.sqrt(2.0)); // n is the power of the motors in the +x +y direction
+//            double m = ((x - y) / Math.sqrt(2.0)); // m is the power of the motors in the +x -y direction
+//            motor1.setPower(m);
+//            motor2.setPower(n);
+//            motor3.setPower(m);
+//            motor4.setPower(n);
+//            motor5.setPower(m);
+//            motor6.setPower(n);
+//        }
     }
 
 	// double x = gamepad1.right_stick_x;
