@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import org.pumatech.simulator.TeleOp;
+import org.pumatech.states.SimulationState;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+import net.java.games.input.Component;
+import net.java.games.input.Controller;
 
 /**
  * Created by vvestin & dani & gabefowiel on 9/23/17.
@@ -18,6 +22,8 @@ public class BasicTeleOp extends OpMode {
 	private DcMotor motor4;
 	private DcMotor motor5;
 	private DcMotor motor6;
+	
+	private DcMotor armMotor;
 
 	private OrientationSensor orientationSensor;
 
@@ -34,6 +40,8 @@ public class BasicTeleOp extends OpMode {
 		motor4 = hardwareMap.dcMotor.get("w4");
 		motor5 = hardwareMap.dcMotor.get("w5");
 		motor6 = hardwareMap.dcMotor.get("w6");
+		
+		armMotor = hardwareMap.dcMotor.get("arm1");
 
 		// motor2.setDirection(DcMotorSimple.Direction.REVERSE);
 		// motor3.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -57,17 +65,31 @@ public class BasicTeleOp extends OpMode {
 		double diry = gamepad1.left_stick_y;
 		
 		//stops random difting from the controller not being perfectally at 0;
-		if (Math.abs(x) < 0.01) {
+		if (Math.abs(x) < 0.05) {
 			x = 0;
 		}
 		
-		if (Math.abs(y) < 0.01) {
+		if (Math.abs(y) < 0.05) {
 			y = 0;
 		}
 		
 
 		
 		move(-y, -x, dir);
+		
+		System.out.println(-y + " " + -x + " " + dir);
+		
+		for (Controller c : SimulationState.gamepads) {
+			Component[] components = c.getComponents();
+			for (Component com : components) {
+				if (com.getPollData() == 1) {
+					if (com.getName().equals("Button 3")) {
+						extend();
+					}
+				}
+			}
+		}
+		
 		
 		/*if (moveRelative && turnRelative)
 			moveRR(x, y, dir);
@@ -85,16 +107,17 @@ public class BasicTeleOp extends OpMode {
             motor2.setPower(-dir);
             motor3.setPower(-dir);
             motor4.setPower(dir);
-            motor5.setPower(dir);
-            motor6.setPower(-dir);
+//          motor5.setPower(dir);
+//          motor6.setPower(-dir);
             // Translating
         } else {
         	motor1.setPower(y);
         	motor2.setPower(y);
         	motor3.setPower(y);
         	motor4.setPower(y);
-        	motor5.setPower(y);
-        	motor6.setPower(y);
+//        	motor5.setPower(y);
+//        	motor6.setPower(y);
+        
         }
             
 //            else { // Translating
@@ -107,6 +130,11 @@ public class BasicTeleOp extends OpMode {
 //            motor5.setPower(m);
 //            motor6.setPower(n);
 //        }
+    }
+    
+    
+    public void extend() {
+    	armMotor.setPower(1);
     }
 
 	// double x = gamepad1.right_stick_x;

@@ -19,13 +19,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Robot {
 
 	private Wheel w1, w2, w3, w4, w5, w6;
+	private Arm arm1;
 	private Body chassis;
 	private HardwareMap hardwareMap;
 	private BNO055IMU imu;
 	private ModernRoboticsI2cRangeSensor rangeSensor;
 	private USPivot usp;
 
-	public Robot(Vec2 pos, PhysicsEngine engine) {
+	public Robot(Vec2 pos, PhysicsEngine engine, double direction) {
 		
 		
 		Vec2[] vertices = { new Vec2(9, 9), new Vec2(-9, 9), new Vec2(-9, -9), new Vec2(9, -9) };
@@ -37,8 +38,11 @@ public class Robot {
 		w4 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(8, 8)));
 		w5 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(8, 0)));
 		w6 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(-8, 0)));
+		
+		arm1 = new Arm(2, 4.7, chassis.getAttachment(new Vec2(-6, 0)));
 
 		chassis.moveBy(pos);	
+
 		
 		hardwareMap = new HardwareMap();
 
@@ -48,6 +52,7 @@ public class Robot {
 		hardwareMap.dcMotor.put("w4", w4);
 		hardwareMap.dcMotor.put("w5", w5);
 		hardwareMap.dcMotor.put("w6", w6);
+		hardwareMap.dcMotor.put("arm1", arm1);
 		
 		rangeSensor = new ModernRoboticsI2cRangeSensor(chassis.getAttachment(pos.added(new Vec2(7, -9))), 0, engine);
 		hardwareMap.range.put("range", rangeSensor);
@@ -59,6 +64,8 @@ public class Robot {
 		
 		imu= new BNO055IMU(chassis);
 		hardwareMap.imu.put("imu",imu);
+		
+		chassis.rotateBy(2.3);
 	}
 
 	public void draw(Graphics2D g) {
@@ -69,6 +76,7 @@ public class Robot {
 		w4.draw(g);
 		w5.draw(g);
 		w6.draw(g);
+		arm1.draw(g);
 		g.setColor(Color.GREEN);
 		Vec2 dir = new Vec2(chassis.direction() - Math.PI / 2).scaled(9);
 		Vec2 pos = chassis.centerPoint();
@@ -83,6 +91,7 @@ public class Robot {
 		w4.update(dt);
 		w5.update(dt);
 		w6.update(dt);
+		arm1.update(dt);
 		chassis.applyForce(chassis.getVelocity().scaled(-10000*dt));
 		chassis.applyTorque(chassis.getAngularVelocity() * -175 * dt);
 		rangeSensor.update(dt);
@@ -91,6 +100,7 @@ public class Robot {
 	public List<Body> getBodies() {
 		List<Body> bodies = new LinkedList<Body>();
 		bodies.add(chassis);
+		bodies.add(arm1.returnBody());
 		return bodies;
 	}
 

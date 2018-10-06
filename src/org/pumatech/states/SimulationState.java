@@ -32,20 +32,21 @@ public class SimulationState extends State {
 	
 	private Robot robot; 
 	private Field field;
-	private List<Controller> gamepads;
+	public static List<Controller> gamepads;
 	
 	private boolean startPressed;
 	
 	public SimulationState() {
 		engine = new PhysicsEngine();
 		// Initialize robot and field
-		robot = new Robot(new Vec2(25, 25), engine);
+		robot = new Robot(new Vec2(57, 57), engine, 9);
 		field = new Field();
 		
 		startPressed = false;
 		
 		engine.addBodies(robot.getBodies());
 		engine.addBodies(field.getBodies());
+		
 		
 		// Camera follows the viewer body (not being simulated), which moves with arrow keys
 		viewer = new Body(null) {
@@ -119,10 +120,10 @@ public class SimulationState extends State {
 			c.poll();
 			
 			Component[] components = c.getComponents();
-			for (int i = 0; i < components.length; i++) {
+			//for (int i = 0; i < components.length; i++) {
 				//System.out.println(i + " " + components[i] + " " + components[i].getPollData());
 				
-			}
+			//}
 		
 			// Weston's old gamepad setting system doesn't work - CR
 			//System.out.println(">>>> " + components);

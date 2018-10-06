@@ -2,6 +2,7 @@ package org.pumatech.physics;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
 // TODO comment
 public class Polygon extends Body {
@@ -29,7 +30,9 @@ public class Polygon extends Body {
 		calcNormals();
 	}
 
-	private void calcNormals() {
+
+
+	protected void calcNormals() {
 		normals = new Vec2[vertices.length];
 		
 		Vec2 first = vertices[0];

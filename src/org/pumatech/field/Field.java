@@ -240,9 +240,6 @@ public class Field {
 	public List<Body> getBodies() {
 		List<Body> bodies = new LinkedList<Body>();
 		bodies.addAll(walls);
-		//bodies.addAll(glyphs);
-		//bodies.addAll(jewels);
-		//bodies.addAll(crypto);
 		bodies.addAll(silverBalls);
 		return bodies;
 	}
