@@ -107,17 +107,11 @@ public class BasicTeleOp extends OpMode {
             motor2.setPower(-dir);
             motor3.setPower(-dir);
             motor4.setPower(dir);
-//          motor5.setPower(dir);
-//          motor6.setPower(-dir);
-            // Translating
-        } else {
+        } else { // moving
         	motor1.setPower(y);
         	motor2.setPower(y);
         	motor3.setPower(y);
         	motor4.setPower(y);
-//        	motor5.setPower(y);
-//        	motor6.setPower(y);
-        
         }
             
 //            else { // Translating
