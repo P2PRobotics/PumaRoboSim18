@@ -23,7 +23,6 @@ public class PhysicsEngine {
 	public void update(double dt) {
 		// List of collisions found that need to be resolved this update
 		List<Collision> collisions = new LinkedList<Collision>();
-		
 		// Update each body and check pairs of bodies for a collision 
 		for (int i = 0; i < bodies.size(); i++) {
 			Body b = bodies.get(i);
@@ -41,7 +40,7 @@ public class PhysicsEngine {
 		
 		// Resolve the collisions found
 		for (Collision c : collisions) {
-			c.resolve();
+				c.resolve();
 		}
 	}
 	

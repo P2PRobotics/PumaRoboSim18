@@ -82,46 +82,46 @@ public class Field {
 		
 		
 
-		glyphs = new LinkedList<Body>();
-		for (int i = 0; i < 8; i++) {
-			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
-			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
-			glyphs.get(glyphs.size()-1).moveBy(new Vec2(72, 32 + 8 * i));
-		}
-		for (int i = 0; i < 3; i++) {
-			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
-			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
-			glyphs.get(glyphs.size()-1).moveBy(new Vec2(92, 52 + 8 * i));
-		}
-		for (int i = 0; i < 3; i++) {
-			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
-			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
-			glyphs.get(glyphs.size()-1).moveBy(new Vec2(52, 52 + 8 * i));
-		}
-		for (int i = 0; i < 5; i++) {
-			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
-			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
-			glyphs.get(glyphs.size()-1).moveBy(new Vec2(82, 44 + 8 * i));
-		}
-		for (int i = 0; i < 5; i++) {
-			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
-			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
-			glyphs.get(glyphs.size()-1).moveBy(new Vec2(62, 44 + 8 * i));
-		}
+//		glyphs = new LinkedList<Body>();
+//		for (int i = 0; i < 8; i++) {
+//			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+//			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+//			glyphs.get(glyphs.size()-1).moveBy(new Vec2(72, 32 + 8 * i));
+//		}
+//		for (int i = 0; i < 3; i++) {
+//			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+//			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+//			glyphs.get(glyphs.size()-1).moveBy(new Vec2(92, 52 + 8 * i));
+//		}
+//		for (int i = 0; i < 3; i++) {
+//			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+//			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+//			glyphs.get(glyphs.size()-1).moveBy(new Vec2(52, 52 + 8 * i));
+//		}
+//		for (int i = 0; i < 5; i++) {
+//			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+//			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+//			glyphs.get(glyphs.size()-1).moveBy(new Vec2(82, 44 + 8 * i));
+//		}
+//		for (int i = 0; i < 5; i++) {
+//			Vec2[] glyphVertices = {new Vec2(3, 3), new Vec2(-3, 3), new Vec2(-3, -3), new Vec2(3, -3) };
+//			glyphs.add(new Polygon(glyphVertices, Material.RUBBER));
+//			glyphs.get(glyphs.size()-1).moveBy(new Vec2(62, 44 + 8 * i));
+//		}
 		
-		crypto = new LinkedList<Body>();
+		//crypto = new LinkedList<Body>();
 //		for (int i = 0; i < 4; i++) {
 //			Vec2[] cryptoBoxVert = {new Vec2(0.5,2), new Vec2(-0.5, 2), new Vec2(-0.5 -2), new Vec2(0.5, -2) };
 //			Vec2[] cryptoBoxHoriz = {new Vec2(2,0.5), new Vec2(-2, 0.5), new Vec2(-2, -0.5), new Vec2(2, -0.5) };
 //			crypto.add(new Polygon(cryptoBoxHoriz, Material.IMMOVEABLE));
 //			crypto.get(crypto.size()-1).moveBy(new Vec2(142, 48 + 7 * i));
 //		}
-		for (int i = 0; i < 4; i++) {
-			Vec2[] cryptoBoxVert = {new Vec2(0.5,2), new Vec2(-0.5, 2), new Vec2(-0.5 -2), new Vec2(0.5, -2) };
-			Vec2[] cryptoBoxHoriz = {new Vec2(2,0.5), new Vec2(-2, 0.5), new Vec2(-2, -0.5), new Vec2(2, -0.5) };
-			crypto.add(new Polygon(cryptoBoxVert, Material.IMMOVEABLE));
-			crypto.get(crypto.size()-1).moveBy(new Vec2(24 + 7 * i,141.5));
-		}
+//		for (int i = 0; i < 4; i++) {
+//			Vec2[] cryptoBoxVert = {new Vec2(0.5,2), new Vec2(-0.5, 2), new Vec2(-0.5 -2), new Vec2(0.5, -2) };
+//			Vec2[] cryptoBoxHoriz = {new Vec2(2,0.5), new Vec2(-2, 0.5), new Vec2(-2, -0.5), new Vec2(2, -0.5) };
+//			crypto.add(new Polygon(cryptoBoxVert, Material.IMMOVEABLE));
+//			crypto.get(crypto.size()-1).moveBy(new Vec2(24 + 7 * i,141.5));
+//		}
 //		for (int i = 0; i < 4; i++) {
 //			Vec2[] cryptoBoxVert = {new Vec2(0.5,2), new Vec2(-0.5, 2), new Vec2(-0.5 -2), new Vec2(0.5, -2) };
 //			Vec2[] cryptoBoxHoriz = {new Vec2(2,0.5), new Vec2(-2, 0.5), new Vec2(-2, -0.5), new Vec2(2, -0.5) };
@@ -203,18 +203,18 @@ public class Field {
 //		g.draw(new Line2D.Double(73, 144, 73, 96));
 //		g.setColor(Color.RED);
 //		g.draw(new Line2D.Double(72, 144, 72, 96));
-		for (Body glyph : glyphs) {
-			//glyph.draw(g);
-		}
-		for (Body jewel : jewels) {
-			//jewel.draw(g);
-		}
+//		for (Body glyph : glyphs) {
+//			//glyph.draw(g);
+//		}
+//		for (Body jewel : jewels) {
+//			//jewel.draw(g);
+//		}
 		for (Body wall : walls) {
 			wall.draw(g);
 		}
-		for (Body box : crypto) {
-			//box.draw(g);
-		}
+//		for (Body box : crypto) {
+//			//box.draw(g);
+//		}
 		for (Body ball : silverBalls) {
 			ball.draw(g);
 		}

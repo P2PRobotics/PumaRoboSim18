@@ -32,7 +32,7 @@ public class PhysicsState extends State {
 		List<Body> bodies = new ArrayList<Body>();
 		
 		bodies.add(new Polygon(new Vec2(300, 200), 30, 4, Material.RUBBER));
-		bodies.add(new Polygon(new Vec2(100, 200), 40, 5, Material.WOOD));
+		bodies.add(new Polygon(new Vec2(100, 200), 40, 5, Material.ROBOT));
 		bodies.add(new Polygon(new Vec2(200, 500), 200, 4, Material.IMMOVEABLE));
 		bodies.get(bodies.size() - 1).rotateBy(Math.PI / 4);
 				
@@ -99,7 +99,7 @@ public class PhysicsState extends State {
 				if (attachment != null) return;
 			}
 		} else {
-			engine.addBody(new Circle(cam.getCoordinate(e), 20, Material.WOOD));
+			engine.addBody(new Circle(cam.getCoordinate(e), 20, Material.ROBOT));
 		}
 	}
 	

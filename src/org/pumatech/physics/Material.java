@@ -4,11 +4,12 @@ import java.awt.Color;
 
 // Material of a body. Contains info about friction, restitution, color, density
 public enum Material {
-	WOOD (5, 1, .05, new Color(130, 82, 1)),
+	ROBOT (5, 1, .05, new Color(130, 82, 1)),
 	RUBBER (10, 1, .1, new Color(11, 38, 81)),
 	WOOD1(5, 1, .05, Color.RED),
 	WOOD2(5, 1, .05, Color.BLUE),
 	SILVER(5, 1, 0.02, Color.GRAY),
+	ARM(5, 1, 1, Color.GRAY),
 	IMMOVEABLE (0, .2, .6, Color.DARK_GRAY);
 
 	private double density;

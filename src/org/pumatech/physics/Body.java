@@ -2,6 +2,8 @@ package org.pumatech.physics;
 
 import java.awt.Graphics2D;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
+
 // Physical body used for simulating physics
 public abstract class Body {
 	// Constants representing values of mass

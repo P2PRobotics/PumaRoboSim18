@@ -197,4 +197,10 @@ public class Collision {
 	public double getDepth() {
 		return depth;
 	}
+	public Body getBodyA() {
+		return a;
+	}
+	public Body getBodyB() {
+		return b;
+	}
 }

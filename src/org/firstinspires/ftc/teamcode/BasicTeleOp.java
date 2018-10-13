@@ -103,27 +103,16 @@ public class BasicTeleOp extends OpMode {
 	
     public void move(double x, double y, double dir) {
         if (dir != 0.5) { // Rotating
-            motor1.setPower(dir);
-            motor2.setPower(-dir);
-            motor3.setPower(-dir);
-            motor4.setPower(dir);
+            motor1.setPower(dir*3);
+            motor2.setPower(-dir*3);
+            motor3.setPower(-dir*3);
+            motor4.setPower(dir*3);
         } else { // moving
-        	motor1.setPower(y);
-        	motor2.setPower(y);
-        	motor3.setPower(y);
-        	motor4.setPower(y);
+        	motor1.setPower(y*3);
+        	motor2.setPower(y*3);
+        	motor3.setPower(y*3);
+        	motor4.setPower(y*3);
         }
-            
-//            else { // Translating
-//            double n = ((x + y) / Math.sqrt(2.0)); // n is the power of the motors in the +x +y direction
-//            double m = ((x - y) / Math.sqrt(2.0)); // m is the power of the motors in the +x -y direction
-//            motor1.setPower(m);
-//            motor2.setPower(n);
-//            motor3.setPower(m);
-//            motor4.setPower(n);
-//            motor5.setPower(m);
-//            motor6.setPower(n);
-//        }
     }
     
     

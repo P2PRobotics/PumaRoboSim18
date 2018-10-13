@@ -30,7 +30,7 @@ public class Robot {
 		
 		
 		Vec2[] vertices = { new Vec2(9, 9), new Vec2(-9, 9), new Vec2(-9, -9), new Vec2(9, -9) };
-		chassis = new Polygon(vertices, Material.WOOD);
+		chassis = new Polygon(vertices, Material.ROBOT);
 	
 		w1 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(8, -8)));
 		w2 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(-8, -8)));
@@ -39,9 +39,11 @@ public class Robot {
 		w5 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(8, 0)));
 		w6 = new Wheel(2, 4.7, chassis.getAttachment(new Vec2(-8, 0)));
 		
-		arm1 = new Arm(2, 4.7, chassis.getAttachment(new Vec2(-6, 0)));
+		arm1 = new Arm(2, 4.7, chassis.getAttachment(new Vec2(-6, 0)), 
+				Arm.getVerts(chassis.getAttachment(new Vec2(-6, 0)), 2, 4.7, false), Material.ARM);
 
-		chassis.moveBy(pos);	
+		chassis.moveBy(pos);
+		arm1.moveBy(pos);
 
 		
 		hardwareMap = new HardwareMap();
@@ -54,18 +56,20 @@ public class Robot {
 		hardwareMap.dcMotor.put("w6", w6);
 		hardwareMap.dcMotor.put("arm1", arm1);
 		
-		rangeSensor = new ModernRoboticsI2cRangeSensor(chassis.getAttachment(pos.added(new Vec2(7, -9))), 0, engine);
-		hardwareMap.range.put("range", rangeSensor);
+		//rangeSensor = new ModernRoboticsI2cRangeSensor(chassis.getAttachment(pos.added(new Vec2(7, -9))), 0, engine);
+		//hardwareMap.range.put("range", rangeSensor);
 		
-		usp = new USPivot(rangeSensor);
-		hardwareMap.servo.put("usp", usp);
+		//usp = new USPivot(rangeSensor);
+		//hardwareMap.servo.put("usp", usp);
 		
 		chassis.rotateBy(Math.PI);
+		arm1.rotateBy(Math.PI);
 		
 		imu= new BNO055IMU(chassis);
 		hardwareMap.imu.put("imu",imu);
 		
 		chassis.rotateBy(2.3);
+		arm1.rotateBy(2.3);
 	}
 
 	public void draw(Graphics2D g) {
@@ -81,7 +85,7 @@ public class Robot {
 		Vec2 dir = new Vec2(chassis.direction() - Math.PI / 2).scaled(9);
 		Vec2 pos = chassis.centerPoint();
 		g.draw(new Line2D.Double(pos.x, pos.y, pos.x + dir.x, pos.y + dir.y));
-		rangeSensor.draw(g);
+		//rangeSensor.draw(g);
 	}
 
 	public void update(double dt) {
@@ -92,15 +96,17 @@ public class Robot {
 		w5.update(dt);
 		w6.update(dt);
 		arm1.update(dt);
+		arm1.applyForce(arm1.getVelocity().scaled(100*dt));
+		arm1.applyTorque(arm1.getAngularVelocity() * -175 * dt);
 		chassis.applyForce(chassis.getVelocity().scaled(-10000*dt));
 		chassis.applyTorque(chassis.getAngularVelocity() * -175 * dt);
-		rangeSensor.update(dt);
+		//rangeSensor.update(dt);
 	}
 
 	public List<Body> getBodies() {
 		List<Body> bodies = new LinkedList<Body>();
 		bodies.add(chassis);
-		bodies.add(arm1.returnBody());
+		bodies.add(arm1);
 		return bodies;
 	}
 

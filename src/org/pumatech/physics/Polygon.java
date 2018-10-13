@@ -105,7 +105,6 @@ public class Polygon extends Body {
 
 	public boolean isColliding(Body b) {
 		Polygon p = (Polygon) b;
-		System.out.println(normals.length);
 		for (int i = 0; i < normals.length; i++) {
 			if (normals[i].dot(p.getSupport(normals[i].scaled(-1)).subtracted(vertices[i].added(pos))) > 0)
 				return false;
