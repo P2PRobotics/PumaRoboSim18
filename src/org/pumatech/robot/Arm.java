@@ -44,7 +44,7 @@ public class Arm extends Polygon implements DcMotor{
 		if (power != 0) {
 			vertices = Arm.getVerts(attachment, radius, direction, true);
 		} 
-		Polygon polyArm = new Polygon(vertices, Material.SILVER);
+		Polygon polyArm = new Polygon(vertices, Material.ARM);
 		polyArm.draw(g);
 		point = attachment.getPoint();
 		dirVec = new Vec2(direction + attachment.getBody().direction()).scaled(radius);
@@ -55,11 +55,18 @@ public class Arm extends Polygon implements DcMotor{
 		if (power != 0) {
 			vertices = Arm.getVerts(attachment, radius, direction, true);
 		} 
-		arm = new Arm(radius, direction, attachment, vertices, Material.SILVER);
+		arm = new Arm(radius, direction, attachment, vertices, Material.ARM);
+		point = attachment.getPoint();
+		dirVec = new Vec2(direction + attachment.getBody().direction()).scaled(radius);
+
 		// Approximates continues movement by slowly moving position and velocity
+		vel = attachment.getBody().getVelocity();
+		force = attachment.getBody().getForce();
+		angularVel = attachment.getBody().getAngularVelocity();
+		torque = attachment.getBody().getTorque();
 		moveBy(vel.scaled(dt));
-		vel.add(force.scaled(getMassInv())); // F = ma => vel = fnInt(F/m,T,Ti,Tf)
-		force.scale(0.02); // Set force to 0 so that only new forces applied every update affect body
+		vel.add(force.scaled(attachment.getBody().getMassInv())); // F = ma => vel = fnInt(F/m,T,Ti,Tf)
+		force.scale(0); // Set force to 0 so that only new forces applied every update affect body
 
 		// Do above with scalar rotation
 		rotateBy(angularVel * dt);
@@ -125,8 +132,8 @@ public class Arm extends Polygon implements DcMotor{
 		return DcMotorSimple.Direction.REVERSE;
 	}
 	
-	public Vec2 centerPoint() {
-		return attachment.getPoint();
-	}
+//	public Vec2 centerPoint() {
+//		return attachment.getPoint();
+//	}
 	
 }

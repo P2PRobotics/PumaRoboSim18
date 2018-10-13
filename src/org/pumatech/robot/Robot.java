@@ -96,8 +96,9 @@ public class Robot {
 		w5.update(dt);
 		w6.update(dt);
 		arm1.update(dt);
-		arm1.applyForce(arm1.getVelocity().scaled(100*dt));
-		arm1.applyTorque(arm1.getAngularVelocity() * -175 * dt);
+		double ratio = arm1.getMass()/chassis.getMass();
+		arm1.applyForce(chassis.getVelocity().scaled((-10000/ratio)*dt));
+		arm1.applyTorque(chassis.getAngularVelocity() * -175 * dt);
 		chassis.applyForce(chassis.getVelocity().scaled(-10000*dt));
 		chassis.applyTorque(chassis.getAngularVelocity() * -175 * dt);
 		//rangeSensor.update(dt);

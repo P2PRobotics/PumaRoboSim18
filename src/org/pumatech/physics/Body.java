@@ -136,5 +136,13 @@ public abstract class Body {
 	public double getAngularVelocity() {
 		return angularVel;
 	}
+	
+	public Vec2 getForce() {
+		return force;
+	}
+	
+	public double getTorque() {
+		return torque;
+	}
 
 }
