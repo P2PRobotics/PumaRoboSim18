@@ -12,12 +12,14 @@ public class HardwareMap {
 	public DeviceMapping<BNO055IMU> imu;
 	public DeviceMapping<ModernRoboticsI2cRangeSensor> range;
 	public DeviceMapping<Servo> servo;
+	public DeviceMapping<colorSensor> color;
 	
 	public HardwareMap() {
 		dcMotor = new DeviceMapping<DcMotor>();
 		imu = new DeviceMapping<BNO055IMU>();
 		range =new DeviceMapping<ModernRoboticsI2cRangeSensor>();
 		servo = new DeviceMapping<Servo>();
+		color = new DeviceMapping<colorSensor>(); 
 	}
 	
 	public class DeviceMapping<D extends HardwareDevice> {
