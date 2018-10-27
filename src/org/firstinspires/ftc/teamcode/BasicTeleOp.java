@@ -6,6 +6,7 @@ import org.pumatech.states.SimulationState;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.colorSensor;
 
 import net.java.games.input.Component;
 import net.java.games.input.Controller;
@@ -25,6 +26,8 @@ public class BasicTeleOp extends OpMode {
 	
 	private DcMotor armMotor;
 
+	private colorSensor cSensor;
+	
 	private OrientationSensor orientationSensor;
 
 	public static final boolean moveRelative = true;
@@ -42,6 +45,8 @@ public class BasicTeleOp extends OpMode {
 		motor6 = hardwareMap.dcMotor.get("w6");
 		
 		armMotor = hardwareMap.dcMotor.get("arm1");
+
+		cSensor = hardwareMap.color.get("colorSensor");
 
 		// motor2.setDirection(DcMotorSimple.Direction.REVERSE);
 		// motor3.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -120,6 +125,10 @@ public class BasicTeleOp extends OpMode {
     	armMotor.setPower(1);
     }
 
+    public void color()
+    {
+    	cSensor.getColor();
+    }
 	// double x = gamepad1.right_stick_x;
 	// double y = gamepad1.right_stick_y;
 	// double dir = gamepad1.right_trigger or gamepad1.left_trigger;
