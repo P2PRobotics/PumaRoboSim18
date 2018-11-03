@@ -127,6 +127,7 @@ public class BasicTeleOp extends OpMode {
 
     public void color()
     {
+    	//getColor does not actually do anything
     	cSensor.getColor();
     }
 	// double x = gamepad1.right_stick_x;

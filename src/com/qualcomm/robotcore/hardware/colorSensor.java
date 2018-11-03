@@ -219,4 +219,10 @@ public class colorSensor extends Polygon implements HardwareDevice
 		return verts;
 	}
 
+
+	public void getColor() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
